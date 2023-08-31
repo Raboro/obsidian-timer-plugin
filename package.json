@@ -1,7 +1,7 @@
 {
-	"name": "obsidian-plugin-template",
+	"name": "timer",
 	"version": "1.0.0",
-	"description": "<description>",
+	"description": "Allows you to measure time.",
 	"main": "src/main.js",
 	"scripts": {
 		"dev": "node esbuild.config.mjs",
