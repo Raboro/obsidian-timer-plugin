@@ -1,0 +1,10 @@
+{
+	"id": "<without obsidian and plugin>",
+	"name": "<>",
+	"version": "1.0.0",
+	"minAppVersion": "0.15.0",
+	"description": "<>",
+	"author": "Marius Wörfel",
+	"authorUrl": "https://github.com/Raboro",
+	"isDesktopOnly": false
+}

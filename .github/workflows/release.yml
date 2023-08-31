@@ -1,0 +1,45 @@
+name: Release Obsidian plugin
+
+on:
+    workflow_run: # only release if Linter finds no errors
+        workflows:
+            - "Linter"
+        types:
+            - completed
+    push:
+        tags:
+            - "*.*.*"
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v3
+
+            - name: Use Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: "18.x"
+
+            - name: Build plugin
+              run: |
+                  npm install
+                  npm run build
+
+            - name: Create release
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  tag="${GITHUB_REF#refs/tags/}"
+
+                  notes_file="release-notes.md"
+                  notes_option=""
+                  if [ -f "$notes_file" ]; then
+                      notes_option="--notes-file=$notes_file"
+                  fi
+
+                  gh release create "$tag" \
+                      --title="$tag" \
+                      $notes_option \
+                      main.js manifest.json styles.css
