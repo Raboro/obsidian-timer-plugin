@@ -1,1 +1,1 @@
-# Obsidian-Plugin-Template
+# Obsidian-Timer-Plugin
