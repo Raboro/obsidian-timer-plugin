@@ -1,9 +1,9 @@
 import { Plugin } from 'obsidian';
-import { DEFAULT_SETTINGS, MyPluginSettings } from './settings/settings';
+import { DEFAULT_SETTINGS, TimerSettings } from './settings/settings';
 
 
-export default class MyPlugin extends Plugin {
-    settings: MyPluginSettings;
+export default class TimerPlugin extends Plugin {
+    settings: TimerSettings;
 
     
     async onload() {

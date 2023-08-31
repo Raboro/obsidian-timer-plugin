@@ -1,15 +1,14 @@
 import { PluginSettingTab } from 'obsidian';
 
-export interface MyPluginSettings {
-    // insert settings
+export interface TimerSettings {
     example: string;
 }
 
-export const DEFAULT_SETTINGS: MyPluginSettings = {
+export const DEFAULT_SETTINGS: TimerSettings = {
     example: ''
 }; 
 
-export class MyPluginSettingsTab extends PluginSettingTab {
+export class TimerSettingsTab extends PluginSettingTab {
     
     display() {
 
