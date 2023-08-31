@@ -33,9 +33,7 @@ export default class TimerView extends ItemView {
     }
 
     protected async onClose(): Promise<void> {
-        if (this.root) {
-            this.root.unmount();
-        }
+        this.root.unmount();
     }
 
 }
