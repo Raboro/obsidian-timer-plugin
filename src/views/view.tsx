@@ -21,7 +21,7 @@ export default class TimerView extends ItemView {
     protected async onOpen(): Promise<void> {
         const { contentEl } = this;
         contentEl.createEl('h1', {text: 'Timer'});  
-        this.container = contentEl.createDiv();
+        this.container = contentEl.createDiv({cls: 'clockContainer'});
         if (!this.root) {
             this.root = createRoot(this.container);
         }

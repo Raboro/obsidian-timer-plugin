@@ -1,3 +1,10 @@
+.clockContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 2vw;
+    align-items: center;
+}
+
 .controlButtonsContainer {
     display: flex;
     flex-direction: row;
