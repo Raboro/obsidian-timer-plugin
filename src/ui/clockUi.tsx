@@ -1,4 +1,4 @@
-import ControlButtonsUi from "./controlButtonsUi";
+import ControlButtonsUi from './controlButtonsUi';
 
 export default function ClockUi() {
     return <>
