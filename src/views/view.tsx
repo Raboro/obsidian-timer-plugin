@@ -2,7 +2,6 @@ import { ItemView } from 'obsidian';
 import * as React from 'react';
 import { Root, createRoot } from 'react-dom/client';
 import ClockUi from 'src/ui/clockUi';
-import ControlButtonsUi from 'src/ui/controlButtonsUi';
 
 export const TIMER_VIEW_TYPE = 'Timer';
 
@@ -29,7 +28,6 @@ export default class TimerView extends ItemView {
         this.root.render(
             <React.StrictMode>
                 <ClockUi />
-                <ControlButtonsUi />
             </React.StrictMode>
         );
     }
