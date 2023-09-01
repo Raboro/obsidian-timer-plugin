@@ -5,7 +5,8 @@
     align-items: center;
 }
 
-.controlButtonsContainer {
+.controlButtonsContainer,
+.clockTextElementContainer {
     display: flex;
     flex-direction: row;
     gap: 2vw;
