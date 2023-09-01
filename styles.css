@@ -8,7 +8,8 @@
 
 .controlButtonsContainer,
 .clockTextElementContainer,
-.clockElementContainer {
+.clockElementContainer,
+.timerButtonsContainer {
     display: flex;
     flex-direction: row;
     gap: 2vw;
@@ -24,6 +25,10 @@
 }
 
 .clockElementContainer {
+    gap: 0.5vw;
+}
+
+.timerButtonsContainer {
     gap: 0.5vw;
 }
 
