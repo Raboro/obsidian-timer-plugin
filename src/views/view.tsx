@@ -14,7 +14,7 @@ export default class TimerView extends ItemView {
 
     constructor(leaf: WorkspaceLeaf, timerButtonsSettings: TimerButtonsSettings) {
         super(leaf);
-        this.timerButtonsSettings = timerButtonsSettings
+        this.timerButtonsSettings = timerButtonsSettings;
     }
 
     getViewType(): string {
