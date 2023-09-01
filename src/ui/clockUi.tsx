@@ -1,14 +1,10 @@
-import ClockElementSeparatorUi from "./clockElementSeparatorUi";
-import ClockElementUi from "./clockElementUi";
-import ClockTextElementUi from "./clockTextElementUi";
+import ClockElementSeparatorUi from './clockElementSeparatorUi';
+import ClockElementUi from './clockElementUi';
+import ClockHeaderTextUi from './clockTextElementUi';
 
 export default function ClockUi() {
     return <div className="clockContainer">
-        <div className="clockTextElementContainer">
-            <ClockTextElementUi text="Hours" />
-            <ClockTextElementUi text="Minutes" />
-            <ClockTextElementUi text="Seconds" />
-        </div>
+        <ClockHeaderTextUi />
         <div className="clockElementContainer">
             <ClockElementUi />
             <ClockElementUi />
