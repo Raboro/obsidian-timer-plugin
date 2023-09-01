@@ -1,6 +1,7 @@
-import { ItemView } from 'obsidian';
+import { ItemView, WorkspaceLeaf } from 'obsidian';
 import * as React from 'react';
 import { Root, createRoot } from 'react-dom/client';
+import { TimerButtonsSettings } from 'src/settings/settings';
 import TimerUi from 'src/ui/timerUi';
 
 export const TIMER_VIEW_TYPE = 'Timer';
@@ -8,7 +9,13 @@ export const TIMER_VIEW_TYPE = 'Timer';
 export default class TimerView extends ItemView {
     private container: HTMLDivElement;
     private root: Root;
+    private timerButtonsSettings: TimerButtonsSettings;
     icon = 'alarm-clock';
+
+    constructor(leaf: WorkspaceLeaf, timerButtonsSettings: TimerButtonsSettings) {
+        super(leaf);
+        this.timerButtonsSettings = timerButtonsSettings
+    }
 
     getViewType(): string {
         return TIMER_VIEW_TYPE;
