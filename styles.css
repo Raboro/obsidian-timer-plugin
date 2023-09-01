@@ -33,6 +33,7 @@
     border-radius: 10px;
     width: 2vw;
     text-align: center;
+    box-shadow: rgb(0 0 0 / 10%) 0 8px 24px;
 }
 
 .clockSeparatorElement {
