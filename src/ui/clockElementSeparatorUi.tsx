@@ -1,3 +1,3 @@
 export default function ClockElementSeparatorUi() {
-    return <></>;
+    return <div className="clockSeparatorElement">:</div>;
 }
