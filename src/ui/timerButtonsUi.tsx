@@ -1,16 +1,40 @@
 import { useContext } from 'react';
 import { TimerButtonsSettingsContext } from 'src/views/view';
 
-export default function TimerButtonsUi() {
+interface ITimerButtonsUi {
+    updateTimer: (update: string) => void;
+}
+
+export default function TimerButtonsUi({ updateTimer }: ITimerButtonsUi) {
     const timerButtonsSettings = useContext(TimerButtonsSettingsContext);
-    return <div className="timerButtonsContainer">
-        <button>-{timerButtonsSettings.fourth}</button>
-        <button>-{timerButtonsSettings.third}</button>
-        <button>-{timerButtonsSettings.second}</button>
-        <button>-{timerButtonsSettings.first}</button>
-        <button>+{timerButtonsSettings.first}</button>
-        <button>+{timerButtonsSettings.second}</button>
-        <button>+{timerButtonsSettings.third}</button>
-        <button>+{timerButtonsSettings.fourth}</button>
-    </div>;
+    const handleButtonClick = (value: string) => updateTimer(value);
+
+    return (
+        <div className="timerButtonsContainer">
+            <button onClick={() => handleButtonClick(`-${timerButtonsSettings.fourth}`)}>
+                -{timerButtonsSettings.fourth}
+            </button>
+            <button onClick={() => handleButtonClick(`-${timerButtonsSettings.third}`)}>
+                -{timerButtonsSettings.third}
+            </button>
+            <button onClick={() => handleButtonClick(`-${timerButtonsSettings.second}`)}>
+                -{timerButtonsSettings.second}
+            </button>
+            <button onClick={() => handleButtonClick(`-${timerButtonsSettings.first}`)}>
+                -{timerButtonsSettings.first}
+            </button>
+            <button onClick={() => handleButtonClick(`+${timerButtonsSettings.first}`)}>
+                +{timerButtonsSettings.first}
+            </button>
+            <button onClick={() => handleButtonClick(`+${timerButtonsSettings.second}`)}>
+                +{timerButtonsSettings.second}
+            </button>
+            <button onClick={() => handleButtonClick(`+${timerButtonsSettings.third}`)}>
+                +{timerButtonsSettings.third}
+            </button>
+            <button onClick={() => handleButtonClick(`+${timerButtonsSettings.fourth}`)}>
+                +{timerButtonsSettings.fourth}
+            </button>
+        </div>
+    );
 }
