@@ -60,8 +60,8 @@ export class TimerSettingsTab extends PluginSettingTab {
 
     private isInvalidValue(value: string) {
         if (value.length == 0) return true;
-        const invalidLastChar: boolean = !['s', 'm', 'h'].contains(value.charAt(value.length-1));
-        const invalidPrefix: boolean = !/^\d+$/.test(value.slice(0, value.length-1));
+        const invalidLastChar = !['s', 'm', 'h'].contains(value.charAt(value.length-1));
+        const invalidPrefix = !/^\d+$/.test(value.slice(0, value.length-1));
         return invalidLastChar || invalidPrefix;
     }
 
