@@ -19,6 +19,23 @@ export default class TimerView extends ItemView {
         this.timerButtonsSettings = timerButtonsSettings;
     }
 
+    async updateSettings(timerButtonsSettings: TimerButtonsSettings) {
+        this.timerButtonsSettings = timerButtonsSettings;
+        await this.onClose();
+        this.root = createRoot(this.container);
+        this.renderRoot();
+    }
+
+    private renderRoot() {
+        this.root.render(
+            <React.StrictMode>
+                <TimerButtonsSettingsContext.Provider value={this.timerButtonsSettings}>
+                    <TimerUi />
+                </TimerButtonsSettingsContext.Provider>
+            </React.StrictMode>
+        );
+    }
+
     getViewType(): string {
         return TIMER_VIEW_TYPE;
     }
@@ -34,13 +51,7 @@ export default class TimerView extends ItemView {
         if (!this.root) {
             this.root = createRoot(this.container);
         }
-        this.root.render(
-            <React.StrictMode>
-                <TimerButtonsSettingsContext.Provider value={this.timerButtonsSettings}>
-                    <TimerUi />
-                </TimerButtonsSettingsContext.Provider>
-            </React.StrictMode>
-        );
+        this.renderRoot();
     }
 
     protected async onClose(): Promise<void> {
