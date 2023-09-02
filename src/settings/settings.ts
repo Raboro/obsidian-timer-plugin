@@ -37,8 +37,10 @@ export class TimerSettingsTab extends PluginSettingTab {
 
     private constructTimerButtonSetting(i: number) {
         return new Setting(this.containerEl)
-            .setName(`${i} position`)
-            .setDesc(`Select the timer jump for the ${i} element`)
+            .setName(`${i+1} timer button value`)
+            .setDesc(`Set the value which increases / decreases the timer if clicking on the ${i+1} timer button. 
+                      The value contains a number followed by seconds(s) or minutes(m) or hours(h). The number 
+                      must be greater than 0.`)
             .addText(text => text
                 .setPlaceholder('Enter value')
                 .setValue(this.getValue(i))
