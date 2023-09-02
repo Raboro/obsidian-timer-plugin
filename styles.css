@@ -1,3 +1,4 @@
+.timerContainer,
 .clockContainer {
     display: flex;
     flex-direction: column;
