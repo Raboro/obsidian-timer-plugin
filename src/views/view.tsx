@@ -1,10 +1,12 @@
 import { ItemView, WorkspaceLeaf } from 'obsidian';
 import * as React from 'react';
 import { Root, createRoot } from 'react-dom/client';
-import { TimerButtonsSettings } from 'src/settings/settings';
+import { DEFAULT_SETTINGS, TimerButtonsSettings } from 'src/settings/settings';
 import TimerUi from 'src/ui/timerUi';
 
 export const TIMER_VIEW_TYPE = 'Timer';
+
+export const TimerButtonsSettingsContext= React.createContext(DEFAULT_SETTINGS.timerButtonsSettings);
 
 export default class TimerView extends ItemView {
     private container: HTMLDivElement;
@@ -34,7 +36,9 @@ export default class TimerView extends ItemView {
         }
         this.root.render(
             <React.StrictMode>
-                <TimerUi />
+                <TimerButtonsSettingsContext.Provider value={this.timerButtonsSettings}>
+                    <TimerUi />
+                </TimerButtonsSettingsContext.Provider>
             </React.StrictMode>
         );
     }
