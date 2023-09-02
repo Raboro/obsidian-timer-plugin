@@ -29,6 +29,19 @@ export default class Timer {
         }
     }
 
+    private merge(first: string, second: string): string {
+        const value = (parseInt(first) + parseInt(second)).toString();
+        return this.betweenZeroAndTen(value) ? '0'.concat(value): value;
+    }
+
+    private validNewValue(mergedValue: string, max: number): boolean {
+        return parseInt(mergedValue) <= max && parseInt(mergedValue) >= 0;
+    }
+
+    private betweenZeroAndTen(value: string) {
+        return parseInt(value) < 10 && parseInt(value) >= 0;
+    }
+
     private updateMinutes(updatedValue: string) {
         const mergedValue = this.merge(updatedValue, this.minuets);
         if (this.validNewValue(mergedValue, this.MINUTES_MAX)) {
@@ -41,18 +54,5 @@ export default class Timer {
         if (this.validNewValue(mergedValue, this.HOUR_MAX)) {
             this.hours = mergedValue;
         }
-    }
-
-    private merge(first: string, second: string): string {
-        const value = (parseInt(first) + parseInt(second)).toString();
-        return this.betweenZeroAndTen(value) ? '0'.concat(value): value;
-    }
-
-    private validNewValue(mergedValue: string, max: number): boolean {
-        return parseInt(mergedValue) <= max && parseInt(mergedValue) >= 0;
-    }
-
-    private betweenZeroAndTen(value: string) {
-        return parseInt(value) < 10 && parseInt(value) >= 0;
     }
 }
