@@ -39,7 +39,7 @@ export default class Timer {
     private updateHour(updateValue: string) {
         const mergedValue = this.merge(updateValue, this.hours);
         if (this.validNewValue(mergedValue, this.HOUR_MAX)) {
-            this.hours = this.merge(updateValue, this.hours);
+            this.hours = mergedValue;
         }
     }
 
