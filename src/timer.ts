@@ -17,12 +17,22 @@ export default class Timer {
         const timeUnit = update.charAt(update.length-1);
         const updateValue = update.substring(0, update.length-1);
 
-        if (timeUnit == 's') {
-            // TODO
-        } else if (timeUnit == 'm') {
-            // TODO
-        } else {
-            this.updateHour(updateValue);
+        if (timeUnit == 's') this.updateSeconds(updateValue);
+        else if (timeUnit == 'm') this.updateMinutes(updateValue);
+        else this.updateHour(updateValue);
+    }
+
+    private updateSeconds(updatedValue: string) {
+        const mergedValue = this.merge(updatedValue, this.seconds);
+        if (this.validNewValue(mergedValue, this.SECONDS_MAX)) {
+            this.seconds = mergedValue;
+        }
+    }
+
+    private updateMinutes(updatedValue: string) {
+        const mergedValue = this.merge(updatedValue, this.minuets);
+        if (this.validNewValue(mergedValue, this.MINUTES_MAX)) {
+            this.minuets = mergedValue;
         }
     }
 
