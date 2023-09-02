@@ -26,6 +26,9 @@ export default class Timer {
         const mergedValue = this.merge(updatedValue, this.seconds);
         if (this.validNewValue(mergedValue, this.SECONDS_MAX)) {
             this.seconds = mergedValue;
+        } else {
+            this.updateMinutes((parseInt((parseInt(mergedValue) / this.SECONDS_MAX).toString())).toString());
+            this.seconds = this.merge('00', (parseInt(mergedValue) % this.SECONDS_MAX).toString());
         }
     }
 
@@ -46,6 +49,9 @@ export default class Timer {
         const mergedValue = this.merge(updatedValue, this.minuets);
         if (this.validNewValue(mergedValue, this.MINUTES_MAX)) {
             this.minuets = mergedValue;
+        } else {
+            this.updateHour((parseInt((parseInt(mergedValue) / this.MINUTES_MAX).toString())).toString());
+            this.minuets = this.merge('00', (parseInt(mergedValue) % this.MINUTES_MAX).toString());
         }
     }
 
