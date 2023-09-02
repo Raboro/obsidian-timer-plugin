@@ -2,19 +2,9 @@ import { App, PluginSettingTab, Setting } from 'obsidian';
 import TimerPlugin from 'src/main';
 
 export class TimerButtonsSettings {
-    [key: string]: string
+    [key: string]: string;
 
-    first: string;
-    second: string;
-    third: string;
-    fourth: string;
-
-    constructor(first: string, second: string, third: string, fourth: string) {
-        this.first = first;
-        this.second = second;
-        this.third = third;
-        this.fourth = fourth;
-    }
+    constructor(public first: string, public second: string, public third: string, public fourth: string) {}
 }
 
 export interface TimerSettings {
