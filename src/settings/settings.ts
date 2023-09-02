@@ -1,4 +1,4 @@
-import { App, PluginSettingTab, Setting } from 'obsidian';
+import { App, Notice, PluginSettingTab, Setting } from 'obsidian';
 import TimerPlugin from 'src/main';
 
 export class TimerButtonsSettings {
@@ -51,6 +51,21 @@ export class TimerSettingsTab extends PluginSettingTab {
     }
 
     private async changeTimerButtonSetting(value: string, index: number) {
+        if (this.isInvalidValue(value)) {
+            new Notice('Invalid value');
+            return;
+        }
+        await this.updateTimerButtonSetting(value, index);
+    }
+
+    private isInvalidValue(value: string) {
+        if (value.length == 0) return true;
+        const invalidLastChar: boolean = !['s', 'm', 'h'].contains(value.charAt(value.length-1));
+        const invalidPrefix: boolean = !/^\d+$/.test(value.slice(0, value.length-1));
+        return invalidLastChar || invalidPrefix;
+    }
+
+    private async updateTimerButtonSetting(value: string, index: number) {
         const properties = ['first', 'second', 'third', 'fourth'];
         this.plugin.settings.timerButtonsSettings[properties[index]] = value;
         await this.plugin.saveSettings();
