@@ -64,7 +64,8 @@ export class TimerSettingsTab extends PluginSettingTab {
         if (value.length == 0) return true;
         const invalidLastChar = !['s', 'm', 'h'].contains(value.charAt(value.length-1));
         const invalidPrefix = !/^\d+$/.test(value.slice(0, value.length-1));
-        return invalidLastChar || invalidPrefix;
+        const valueTooLow = parseInt(value.slice(0, value.length-1)) <= 0;
+        return invalidLastChar || invalidPrefix || valueTooLow;
     }
 
     private async updateTimerButtonSetting(value: string, index: number) {
