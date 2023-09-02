@@ -1,5 +1,5 @@
-import { useContext } from "react";
-import { TimerButtonsSettingsContext } from "src/views/view";
+import { useContext } from 'react';
+import { TimerButtonsSettingsContext } from 'src/views/view';
 
 export default function TimerButtonsUi() {
     const timerButtonsSettings = useContext(TimerButtonsSettingsContext);
