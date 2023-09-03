@@ -22,6 +22,7 @@ export default class Timer {
         const updateValue = update.substring(0, update.length-1);
 
         if (this.isReset(timeUnit, updateValue)) this.initValues();
+        else if (this.isTooBig(timeUnit, updateValue)) this.setMaxValue();
         else this.update(timeUnit, updateValue);
     }
 
@@ -30,9 +31,26 @@ export default class Timer {
     }
 
     private updateIsBigger(timeUnit: string, updateValue: string): boolean {
-        const update = updateValue.replace('-', '') + '0'.repeat(this.determineShift(timeUnit) ?? 0);
-        const current = this.toString().replace(':', '').replace(':', '');
-        return (parseInt(update) - parseInt(current)) >= 0;
+        return (this.getUpdateAsInt(timeUnit, updateValue) - this.getCurrentAsInt()) >= 0;
+    }
+
+    private getUpdateAsInt(timeUnit: string, updateValue: string): number {
+        return parseInt(updateValue.replace('-', '') + '0'.repeat(this.determineShift(timeUnit) ?? 0));
+    }
+
+    private getCurrentAsInt(): number {
+        return parseInt(this.toString().replace(':', '').replace(':', ''));
+    }
+
+    private isTooBig(timeUnit: string, updateValue: string): boolean {
+        const prefix = updateValue.contains('-') ? -1 : 1;
+        return (prefix * this.getUpdateAsInt(timeUnit, updateValue) + this.getCurrentAsInt() - 995959) >= 0;
+    }
+
+    private setMaxValue(): void {
+        this.hours = this.HOUR_MAX.toString();
+        this.minutes = this.MINUTES_MAX.toString();
+        this.seconds = this.SECONDS_MAX.toString();
     }
 
     private determineShift(timeUnit: string): number | undefined {
