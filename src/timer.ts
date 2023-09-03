@@ -29,11 +29,7 @@ export default class Timer {
         } else {
             const negative = parseInt(mergedValue) <= 0;
             this.updateMinutes(this.getUpdateForNext(negative, mergedValue, this.SECONDS_MAX));
-            if (negative) {
-                this.seconds = (this.SECONDS_MAX+1+parseInt(this.merge('00', (parseInt(mergedValue) % this.SECONDS_MAX).toString()))).toString()
-            } else {
-                this.seconds = this.merge('00', ((parseInt(mergedValue) % this.SECONDS_MAX)-1).toString())
-            }       
+            this.seconds = this.getUpdateForCurrent(negative, mergedValue, this.SECONDS_MAX);     
         }
     }
 
@@ -54,6 +50,13 @@ export default class Timer {
         return negative ? '-1': ((parseInt((parseInt(mergedValue) / max).toString())).toString());
     }
 
+    private getUpdateForCurrent(negative: boolean, mergedValue: string, max: number) {
+        const mod = parseInt(mergedValue) % max;
+        const merged = this.merge('00', (mod - (negative ? 0 : 1)).toString());
+        if (negative) return (max + 1 + parseInt(merged)).toString(); 
+        else return merged;
+    }
+
     private updateMinutes(updatedValue: string) {
         const mergedValue = this.merge(updatedValue, this.minuets);
         if (this.validNewValue(mergedValue, this.MINUTES_MAX)) {
@@ -61,11 +64,7 @@ export default class Timer {
         } else {
             const negative = parseInt(mergedValue) <= 0;
             this.updateHour(this.getUpdateForNext(negative, mergedValue, this.MINUTES_MAX));
-            if (negative) {
-                this.minuets = (this.MINUTES_MAX+1+parseInt(this.merge('00', (parseInt(mergedValue) % this.MINUTES_MAX).toString()))).toString();
-            } else {
-                this.minuets = this.merge('00', ((parseInt(mergedValue) % this.MINUTES_MAX)-1).toString());
-            }
+            this.minuets = this.getUpdateForCurrent(negative, mergedValue, this.MINUTES_MAX);     
         }
     }
 
