@@ -21,8 +21,12 @@ export default class Timer {
         const timeUnit = update.charAt(update.length-1);
         const updateValue = update.substring(0, update.length-1);
 
-        if (updateValue.contains('-') && this.updateIsBigger(timeUnit, updateValue)) this.initValues();
+        if (this.isReset(timeUnit, updateValue)) this.initValues();
         else this.update(timeUnit, updateValue);
+    }
+
+    private isReset(timeUnit: string, updateValue: string): boolean {
+        return updateValue.contains('-') && this.updateIsBigger(timeUnit, updateValue);
     }
 
     private updateIsBigger(timeUnit: string, updateValue: string): boolean {
