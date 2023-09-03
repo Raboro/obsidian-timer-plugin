@@ -105,8 +105,16 @@ export default class Timer {
         return false;
     }
 
+    access(): TimerDTO {
+        return new TimerDTO(this.hours, this.minuets, this.seconds);
+    }
+
     toString(): string {
         const format = (value: string) => value.padStart(2, '0');
         return `${format(this.hours)}:${format(this.minuets)}:${format(this.seconds)}`;
     }
+}
+
+export class TimerDTO {
+    constructor(readonly hours: string, readonly minuets: string, readonly seconds: string) {}
 }
