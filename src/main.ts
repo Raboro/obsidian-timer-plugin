@@ -10,8 +10,17 @@ export default class TimerPlugin extends Plugin {
     async onload() {
         await this.loadSettings();
         this.registerView(TIMER_VIEW_TYPE, (leaf) => new TimerView(leaf, this.settings.timerButtonsSettings));
-        this.addRibbonIcon('alarm-clock', 'Open Timer',async () => await this.openView());
+        this.addRibbonIcon('alarm-clock', 'Open Timer', async () => await this.openView());
+        this.addCommands();
         this.addSettingTab(new TimerSettingsTab(this.app, this));
+    }
+
+    private addCommands() {
+        this.addCommand({
+            id: 'open-timer',
+            name: 'Open Timer',
+            callback: async () => await this.openView()
+        });
     }
 
     onunload() {
