@@ -4,7 +4,7 @@ export default class Timer {
     private readonly SECONDS_MAX: number = 59;
 
     private hours: string;
-    private minuets: string;
+    private minutes: string;
     private seconds: string;
 
     constructor(timer?: Timer) {
@@ -13,7 +13,7 @@ export default class Timer {
 
     private initValues(timer?: Timer) {
         this.hours = timer?.hours ?? '00';
-        this.minuets = timer?.minuets ?? '00';
+        this.minutes = timer?.minutes ?? '00';
         this.seconds = timer?.seconds ?? '00';
     }
 
@@ -82,14 +82,14 @@ export default class Timer {
     }
 
     private updateMinutes(updatedValue: string): boolean {
-        const mergedValue = this.merge(updatedValue, this.minuets);
+        const mergedValue = this.merge(updatedValue, this.minutes);
         if (this.validNewValue(mergedValue, this.MINUTES_MAX)) {
-            this.minuets = mergedValue;
+            this.minutes = mergedValue;
             return true;
         } else {
             const negative = parseInt(mergedValue) <= 0;
             if (this.updateHour(this.getUpdateForNext(negative, mergedValue, this.MINUTES_MAX))) {
-                this.minuets = this.getUpdateForCurrent(negative, mergedValue, this.MINUTES_MAX);
+                this.minutes = this.getUpdateForCurrent(negative, mergedValue, this.MINUTES_MAX);
                 return true;
             }     
         }
@@ -106,15 +106,15 @@ export default class Timer {
     }
 
     access(): TimerDTO {
-        return new TimerDTO(this.hours, this.minuets, this.seconds);
+        return new TimerDTO(this.hours, this.minutes, this.seconds);
     }
 
     toString(): string {
         const format = (value: string) => value.padStart(2, '0');
-        return `${format(this.hours)}:${format(this.minuets)}:${format(this.seconds)}`;
+        return `${format(this.hours)}:${format(this.minutes)}:${format(this.seconds)}`;
     }
 }
 
 export class TimerDTO {
-    constructor(readonly hours: string, readonly minuets: string, readonly seconds: string) {}
+    constructor(readonly hours: string, readonly minutes: string, readonly seconds: string) {}
 }
