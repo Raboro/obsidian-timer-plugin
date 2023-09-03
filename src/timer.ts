@@ -8,6 +8,10 @@ export default class Timer {
     private seconds: string;
 
     constructor(timer?: Timer) {
+        this.initValues(timer);
+    }
+
+    private initValues(timer?: Timer) {
         this.hours = timer?.hours ?? '00';
         this.minuets = timer?.minuets ?? '00';
         this.seconds = timer?.seconds ?? '00';
@@ -17,9 +21,24 @@ export default class Timer {
         const timeUnit = update.charAt(update.length-1);
         const updateValue = update.substring(0, update.length-1);
 
+        if (updateValue.contains('-') && this.updateIsBigger(timeUnit, updateValue)) {
+            this.initValues();
+            return;
+        }
+
         if (timeUnit == 's') this.updateSeconds(updateValue);
         else if (timeUnit == 'm') this.updateMinutes(updateValue);
         else this.updateHour(updateValue);
+    }
+
+    private updateIsBigger(timeUnit: string, updateValue: string): boolean {
+        const update = updateValue.replace('-', '') + '0'.repeat(this.determineShift(timeUnit) ?? 0);
+        const current = this.toString().replace(':', '').replace(':', '');
+        return (parseInt(update) - parseInt(current)) >= 0;
+    }
+
+    private determineShift(timeUnit: string): number | undefined {
+        return { 's': 0, 'm': 2, 'h': 4 }[timeUnit];
     }
 
     private updateSeconds(updatedValue: string): void {
