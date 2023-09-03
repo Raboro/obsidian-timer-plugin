@@ -21,14 +21,8 @@ export default class Timer {
         const timeUnit = update.charAt(update.length-1);
         const updateValue = update.substring(0, update.length-1);
 
-        if (updateValue.contains('-') && this.updateIsBigger(timeUnit, updateValue)) {
-            this.initValues();
-            return;
-        }
-
-        if (timeUnit == 's') this.updateSeconds(updateValue);
-        else if (timeUnit == 'm') this.updateMinutes(updateValue);
-        else this.updateHour(updateValue);
+        if (updateValue.contains('-') && this.updateIsBigger(timeUnit, updateValue)) this.initValues();
+        else this.update(timeUnit, updateValue);
     }
 
     private updateIsBigger(timeUnit: string, updateValue: string): boolean {
@@ -39,6 +33,12 @@ export default class Timer {
 
     private determineShift(timeUnit: string): number | undefined {
         return { 's': 0, 'm': 2, 'h': 4 }[timeUnit];
+    }
+
+    private update(timeUnit: string, updateValue: string) {
+        if (timeUnit == 's') this.updateSeconds(updateValue);
+        else if (timeUnit == 'm') this.updateMinutes(updateValue);
+        else this.updateHour(updateValue);
     }
 
     private updateSeconds(updatedValue: string): void {
