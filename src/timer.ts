@@ -13,7 +13,7 @@ export default class Timer {
         this.seconds = timer?.seconds ?? '00';
     }
 
-    updateTimer(update: string) {
+    updateTimer(update: string): void {
         const timeUnit = update.charAt(update.length-1);
         const updateValue = update.substring(0, update.length-1);
 
@@ -22,7 +22,7 @@ export default class Timer {
         else this.updateHour(updateValue);
     }
 
-    private updateSeconds(updatedValue: string) {
+    private updateSeconds(updatedValue: string): void {
         const mergedValue = this.merge(updatedValue, this.seconds);
         if (this.validNewValue(mergedValue, this.SECONDS_MAX)) {
             this.seconds = mergedValue;
@@ -42,22 +42,22 @@ export default class Timer {
         return parseInt(mergedValue) <= max && parseInt(mergedValue) >= 0;
     }
 
-    private betweenZeroAndTen(value: string) {
+    private betweenZeroAndTen(value: string): boolean {
         return parseInt(value) < 10 && parseInt(value) >= 0;
     }
 
-    private getUpdateForNext(negative: boolean, mergedValue: string, max: number) {
+    private getUpdateForNext(negative: boolean, mergedValue: string, max: number): string {
         return negative ? '-1': ((parseInt((parseInt(mergedValue) / max).toString())).toString());
     }
 
-    private getUpdateForCurrent(negative: boolean, mergedValue: string, max: number) {
+    private getUpdateForCurrent(negative: boolean, mergedValue: string, max: number): string {
         const mod = parseInt(mergedValue) % max;
         const merged = this.merge('00', (mod - (negative ? 0 : 1)).toString());
         if (negative) return (max + 1 + parseInt(merged)).toString(); 
         else return merged;
     }
 
-    private updateMinutes(updatedValue: string) {
+    private updateMinutes(updatedValue: string): void {
         const mergedValue = this.merge(updatedValue, this.minuets);
         if (this.validNewValue(mergedValue, this.MINUTES_MAX)) {
             this.minuets = mergedValue;
@@ -68,14 +68,14 @@ export default class Timer {
         }
     }
 
-    private updateHour(updateValue: string) {
+    private updateHour(updateValue: string): void {
         const mergedValue = this.merge(updateValue, this.hours);
         if (this.validNewValue(mergedValue, this.HOUR_MAX)) {
             this.hours = mergedValue;
         }
     }
 
-    toString() {
+    toString(): string {
         const format = (value: string) => value.padStart(2, '0');
         return `${format(this.hours)}:${format(this.minuets)}:${format(this.seconds)}`;
     }
