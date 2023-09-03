@@ -1,7 +1,7 @@
 export default class Timer {
     private readonly HOUR_MAX: number = 99;
-    private readonly MINUTES_MAX: number = 60;
-    private readonly SECONDS_MAX: number = 60;
+    private readonly MINUTES_MAX: number = 59;
+    private readonly SECONDS_MAX: number = 59;
 
     private hours: string;
     private minuets: string;
