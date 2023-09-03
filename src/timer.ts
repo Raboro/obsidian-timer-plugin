@@ -39,7 +39,7 @@ export default class Timer {
         return { 's': 0, 'm': 2, 'h': 4 }[timeUnit];
     }
 
-    private update(timeUnit: string, updateValue: string) {
+    private update(timeUnit: string, updateValue: string): void {
         if (timeUnit == 's') this.updateSeconds(updateValue);
         else if (timeUnit == 'm') this.updateMinutes(updateValue);
         else this.updateHour(updateValue);
