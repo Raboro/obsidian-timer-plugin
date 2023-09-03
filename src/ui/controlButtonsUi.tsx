@@ -1,6 +1,10 @@
 import { useState } from 'react';
 
-export default function ControlButtonsUi() {
+interface IControlButtonsUi {
+    resetTimer: () => void;
+}
+
+export default function ControlButtonsUi({ resetTimer }: IControlButtonsUi) {
     const [startDisplay, setStartDisplay] = useState(true);
     const [resetDisplay, setResetDisplay] = useState(true);
     const [cancelDisplay, setCancelDisplay] = useState(false);
@@ -19,7 +23,7 @@ export default function ControlButtonsUi() {
     }
 
     function reset() {
-        // TODO trigger ClockUi here
+        resetTimer();
     }
 
     function cancel() {

@@ -13,9 +13,11 @@ export default function TimerUi() {
         setTimer(updatedTimer); 
     };
 
+    const resetTimer = () => setTimer(new Timer());
+
     return <>
         <ClockUi timer={timer.access()}/>
-        <TimerButtonsUi updateTimer={updateTimer}/>
-        <ControlButtonsUi />
+        <TimerButtonsUi updateTimer={updateTimer} />
+        <ControlButtonsUi resetTimer={resetTimer} />
     </>;
 }
