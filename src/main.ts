@@ -21,6 +21,11 @@ export default class TimerPlugin extends Plugin {
             name: 'Open Timer',
             callback: async () => await this.openView()
         });
+        this.addCommand({
+            id: 'set-timer-to',
+            name: 'Set Timer To',
+            callback: () => {console.log('Need to be implemented')} // TODO need to be implemented with Model
+        });
     }
 
     onunload() {
