@@ -18,33 +18,14 @@ export default class Timer {
     }
 
     updateTimer(update: string): void {
-        const timeUnit = update.charAt(update.length-1);
-        const updateValue = update.substring(0, update.length-1);
-
-        if (this.isReset(timeUnit, updateValue)) this.initValues();
-        else if (this.isTooBig(timeUnit, updateValue)) this.setMaxValue();
-        else this.update(timeUnit, updateValue);
-    }
-
-    private isReset(timeUnit: string, updateValue: string): boolean {
-        return updateValue.contains('-') && this.updateIsBigger(timeUnit, updateValue);
-    }
-
-    private updateIsBigger(timeUnit: string, updateValue: string): boolean {
-        return (this.getUpdateAsInt(timeUnit, updateValue) - this.getCurrentAsInt()) >= 0;
-    }
-
-    private getUpdateAsInt(timeUnit: string, updateValue: string): number {
-        return parseInt(updateValue.replace('-', '') + '0'.repeat(this.determineShift(timeUnit) ?? 0));
+        const timerUpdate: TimerUpdate = new TimerUpdate(update, this.getCurrentAsInt());
+        if (timerUpdate.isReset()) this.initValues();
+        else if (timerUpdate.isTooBig()) this.setMaxValue();
+        else this.update(timerUpdate);
     }
 
     private getCurrentAsInt(): number {
         return parseInt(this.toString().replace(':', '').replace(':', ''));
-    }
-
-    private isTooBig(timeUnit: string, updateValue: string): boolean {
-        const prefix = updateValue.contains('-') ? -1 : 1;
-        return (prefix * this.getUpdateAsInt(timeUnit, updateValue) + this.getCurrentAsInt() - 995959) >= 0;
     }
 
     private setMaxValue(): void {
@@ -53,14 +34,10 @@ export default class Timer {
         this.seconds = this.SECONDS_MAX.toString();
     }
 
-    private determineShift(timeUnit: string): number | undefined {
-        return { 's': 0, 'm': 2, 'h': 4 }[timeUnit];
-    }
-
-    private update(timeUnit: string, updateValue: string): void {
-        if (timeUnit == 's') this.updateSeconds(updateValue);
-        else if (timeUnit == 'm') this.updateMinutes(updateValue);
-        else this.updateHour(updateValue);
+    private update(timerUpdate: TimerUpdate): void {
+        if (timerUpdate.inSeconds()) this.updateSeconds(timerUpdate.getValue());
+        else if (timerUpdate.inMinutes()) this.updateMinutes(timerUpdate.getValue());
+        else this.updateHour(timerUpdate.getValue());
     }
 
     private updateSeconds(updatedValue: string): void {
@@ -135,4 +112,49 @@ export default class Timer {
 
 export class TimerDTO {
     constructor(readonly hours: string, readonly minutes: string, readonly seconds: string) {}
+}
+
+class TimerUpdate {
+    private timeUnit: string;
+    private updateValue: string;
+    private current: number;
+
+    constructor(update: string, current: number) {
+        this.timeUnit = update.charAt(update.length-1);
+        this.updateValue = update.substring(0, update.length-1);
+        this.current = current;
+    }
+
+    isReset(): boolean {
+        return this.updateValue.contains('-') && this.updateIsBigger();
+    }
+
+    private updateIsBigger(): boolean {
+        return (this.getUpdateAsInt() - this.current) >= 0;
+    }
+
+    private getUpdateAsInt(): number {
+        return parseInt(this.updateValue.replace('-', '') + '0'.repeat(this.determineShift() ?? 0));
+    }
+
+    private determineShift(): number | undefined {
+        return { 's': 0, 'm': 2, 'h': 4 }[this.timeUnit];
+    }
+
+    isTooBig(): boolean {
+        const prefix = this.updateValue.contains('-') ? -1 : 1;
+        return (prefix * this.getUpdateAsInt() + this.current - 995959) >= 0;
+    }
+
+    inSeconds(): boolean {
+        return this.timeUnit.contains('s');
+    }
+
+    inMinutes(): boolean {
+        return this.timeUnit.contains('m');
+    }
+
+    getValue(): string {
+        return this.updateValue;
+    }
 }
