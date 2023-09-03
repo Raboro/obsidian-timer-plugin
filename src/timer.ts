@@ -74,4 +74,9 @@ export default class Timer {
             this.hours = mergedValue;
         }
     }
+
+    toString() {
+        const format = (value: string) => value.padStart(2, '0');
+        return `${format(this.hours)}:${format(this.minuets)}:${format(this.seconds)}`;
+    }
 }
