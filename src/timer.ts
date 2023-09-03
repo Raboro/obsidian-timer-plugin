@@ -28,10 +28,14 @@ export default class Timer {
             this.seconds = mergedValue;
         } else {
             const negative = parseInt(mergedValue) <= 0;
-            this.updateMinutes(negative ? '-1': ((parseInt((parseInt(mergedValue) / this.SECONDS_MAX).toString())).toString()));
-            this.seconds = negative 
-                ? (this.SECONDS_MAX+parseInt(this.merge('00', (parseInt(mergedValue) % this.SECONDS_MAX).toString()))).toString() 
-                : this.merge('00', (parseInt(mergedValue) % this.SECONDS_MAX).toString());        }
+            const update = negative ? '-1': ((parseInt((parseInt(mergedValue) / this.SECONDS_MAX).toString())).toString());
+            this.updateMinutes(update);
+            if (negative) {
+                this.seconds = (this.SECONDS_MAX+1+parseInt(this.merge('00', (parseInt(mergedValue) % this.SECONDS_MAX).toString()))).toString()
+            } else {
+                this.seconds = this.merge('00', ((parseInt(mergedValue) % this.SECONDS_MAX)-1).toString())
+            }       
+        }
     }
 
     private merge(first: string, second: string): string {
@@ -53,10 +57,13 @@ export default class Timer {
             this.minuets = mergedValue;
         } else {
             const negative = parseInt(mergedValue) <= 0;
-            this.updateHour(negative ? '-1': ((parseInt((parseInt(mergedValue) / this.MINUTES_MAX).toString())).toString()));
-            this.minuets = negative 
-                ? (this.MINUTES_MAX+parseInt(this.merge('00', (parseInt(mergedValue) % this.MINUTES_MAX).toString()))).toString() 
-                : this.merge('00', (parseInt(mergedValue) % this.MINUTES_MAX).toString());
+            const update = negative ? '-1': ((parseInt((parseInt(mergedValue) / this.MINUTES_MAX).toString())).toString());
+            this.updateHour(update);
+            if (negative) {
+                this.minuets = (this.MINUTES_MAX+1+parseInt(this.merge('00', (parseInt(mergedValue) % this.MINUTES_MAX).toString()))).toString();
+            } else {
+                this.minuets = this.merge('00', ((parseInt(mergedValue) % this.MINUTES_MAX)-1).toString());
+            }
         }
     }
 
