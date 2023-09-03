@@ -1,24 +1,24 @@
 import ClockElementSeparatorUi from './clockElementSeparatorUi';
 import ClockElementUi from './clockElementUi';
 import ClockHeaderTextUi from './clockTextElementUi';
-import Timer from 'src/timer';
+import { TimerDTO } from 'src/timer';
 
 interface IClockUi {
-    timer: Timer;
+    timer: TimerDTO;
 }
 
 export default function ClockUi({timer}: IClockUi) {
     return <div className="clockContainer">
         <ClockHeaderTextUi />
         <div className="clockElementContainer">
-            <ClockElementUi />
-            <ClockElementUi />
+            <ClockElementUi char={timer.hours.charAt(0)} />
+            <ClockElementUi char={timer.hours.charAt(1)} />
             <ClockElementSeparatorUi />
-            <ClockElementUi />
-            <ClockElementUi />
+            <ClockElementUi char={timer.minutes.charAt(0)} />
+            <ClockElementUi char={timer.minutes.charAt(1)} />
             <ClockElementSeparatorUi />
-            <ClockElementUi />
-            <ClockElementUi />
+            <ClockElementUi char={timer.seconds.charAt(0)} />
+            <ClockElementUi char={timer.seconds.charAt(1)} />
         </div>
     </div>;
 }

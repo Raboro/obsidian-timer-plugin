@@ -14,7 +14,7 @@ export default function TimerUi() {
     };
 
     return <>
-        <ClockUi timer={timer}/>
+        <ClockUi timer={timer.access()}/>
         <TimerButtonsUi updateTimer={updateTimer}/>
         <ControlButtonsUi />
     </>;
