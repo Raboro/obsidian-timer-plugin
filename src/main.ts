@@ -51,7 +51,7 @@ export default class TimerPlugin extends Plugin {
         new SetTimerModal(this.app, (result: string) => {
             new Notice(result);
         }).open();
-    }    
+    };    
 
     async loadSettings() {
 		this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());

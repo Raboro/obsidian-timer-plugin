@@ -1,4 +1,4 @@
-import { App, ButtonComponent, Modal, Setting } from "obsidian";
+import { App, ButtonComponent, Modal, Setting } from 'obsidian';
 
 export default class SetTimerModal extends Modal {
     private result: string;
@@ -19,7 +19,7 @@ export default class SetTimerModal extends Modal {
         new Setting(contentEl)
             .setName(this.createFragment(contentEl))
             .addText(text => text.onChange(value => this.result = value));
-        new Setting(contentEl).addButton(button => this.setButton(button))
+        new Setting(contentEl).addButton(button => this.setButton(button));
     }
 
     private createFragment(contentEl: HTMLElement): DocumentFragment {
@@ -37,7 +37,7 @@ export default class SetTimerModal extends Modal {
             .onClick(() => {
                 this.close();
                 this.onSubmit(this.result);
-            })
+            });
     }
 
     onClose(): void {
