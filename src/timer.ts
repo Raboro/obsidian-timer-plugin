@@ -7,8 +7,15 @@ export default class Timer {
     private minutes: string;
     private seconds: string;
 
-    constructor(timer?: Timer) {
-        this.initValues(timer);
+    constructor(timer?: Timer, splitted?: string[]) {
+        if (splitted) this.setValues(splitted);
+        else this.initValues(timer);
+    }
+
+    private setValues(splitted: string[]): void {
+        this.hours = splitted[0];
+        this.minutes = splitted[1];
+        this.seconds = splitted[2];
     }
 
     private initValues(timer?: Timer) {
@@ -19,7 +26,7 @@ export default class Timer {
 
     static set(result: string): Timer {
         if (this.containsChar(result)) return this.setContainsChar(result);
-        return new Timer();
+        return this.setWithoutChar(result);
     }
 
     private static containsChar(result: string) {
@@ -31,6 +38,14 @@ export default class Timer {
         const timer = new Timer();
         matches?.forEach(match => timer.updateTimer(match));
         return timer;
+    }
+
+    private static setWithoutChar(result: string): Timer {
+        const splitted = result.split(':');
+        while (splitted.length < 3) {
+            splitted.unshift('00');
+        }
+        return new Timer(undefined, splitted);
     }
 
     updateTimer(update: string): void {
