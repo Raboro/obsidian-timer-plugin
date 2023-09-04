@@ -25,8 +25,7 @@ export default class Timer {
     }
 
     static set(result: string): Timer {
-        if (this.containsChar(result)) return this.setContainsChar(result);
-        return this.setWithoutChar(result);
+        return this.containsChar(result) ? this.setContainsChar(result) : this.setWithoutChar(result);
     }
 
     private static containsChar(result: string) {
