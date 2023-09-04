@@ -27,8 +27,7 @@ export default class Timer {
     }
 
     private static setContainsChar(result: string): Timer {
-        const regex = /(\d+[smh]?)/g;
-        const matches = result.match(regex);
+        const matches = result.match(/(\d+[smh]?)/g);
         const timer = new Timer();
         matches?.forEach(match => timer.updateTimer(match));
         return timer;
