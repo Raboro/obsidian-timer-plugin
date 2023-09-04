@@ -1,7 +1,8 @@
-import { Notice, Plugin, WorkspaceLeaf } from 'obsidian';
+import { Plugin, WorkspaceLeaf } from 'obsidian';
 import { DEFAULT_SETTINGS, TimerSettings, TimerSettingsTab } from './settings/settings';
 import TimerView, { TIMER_VIEW_TYPE } from './views/view';
 import SetTimerModal from './modals/setTimerModal';
+import Timer from './timer';
 
 
 export default class TimerPlugin extends Plugin {
@@ -49,7 +50,7 @@ export default class TimerPlugin extends Plugin {
 
     private setTimerTo = () => {
         new SetTimerModal(this.app, (result: string) => {
-            new Notice(result);
+            console.log(Timer.set(result));
         }).open();
     };    
 
