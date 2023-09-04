@@ -17,6 +17,19 @@ export default class Timer {
         this.seconds = timer?.seconds ?? '00';
     }
 
+    static set(result: string): Timer {
+        if (['s', 'm', 'h'].some(e => result.contains(e))) return this.setContainsChar(result);
+        return new Timer();
+    }
+
+    private static setContainsChar(result: string): Timer {
+        const regex = /(\d+[smh]?)/g;
+        const matches = result.match(regex);
+        const timer = new Timer();
+        matches?.forEach(match => timer.updateTimer(match));
+        return timer;
+    }
+
     updateTimer(update: string): void {
         const timerUpdate: TimerUpdate = new TimerUpdate(update, this.getCurrentAsInt());
         if (timerUpdate.isReset()) this.initValues();
