@@ -17,12 +17,20 @@ export default class SetTimerModal extends Modal {
 
     private addSettings(contentEl: HTMLElement): void {
         new Setting(contentEl)
-            .setName('New time')
+            .setName(this.createFragment(contentEl))
             .addText(text => text.onChange(value => this.result = value));
         new Setting(contentEl).addButton(button => this.setButton(button))
     }
 
-    private setButton(button: ButtonComponent) {
+    private createFragment(contentEl: HTMLElement): DocumentFragment {
+        const fragment = new DocumentFragment();
+        fragment.appendChild(contentEl.createEl('h4', { text: 'Insert new timer in two ways:' }));
+        fragment.appendChild(contentEl.createEl('p', { text: '1. In time notation: HH:MM:SS.' }));
+        fragment.appendChild(contentEl.createEl('p', { text: '2. With letters: 00h00m00s.' }));
+        return fragment;
+    }
+
+    private setButton(button: ButtonComponent): void {
         button
             .setButtonText('Submit')
             .setCta()
