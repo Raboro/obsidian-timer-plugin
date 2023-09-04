@@ -18,8 +18,12 @@ export default class Timer {
     }
 
     static set(result: string): Timer {
-        if (['s', 'm', 'h'].some(e => result.contains(e))) return this.setContainsChar(result);
+        if (this.containsChar(result)) return this.setContainsChar(result);
         return new Timer();
+    }
+
+    private static containsChar(result: string) {
+        return (['s', 'm', 'h'].some(char => result.contains(char)))
     }
 
     private static setContainsChar(result: string): Timer {
