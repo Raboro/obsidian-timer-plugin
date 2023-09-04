@@ -23,7 +23,7 @@ export default class Timer {
     }
 
     private static containsChar(result: string) {
-        return (['s', 'm', 'h'].some(char => result.contains(char)))
+        return (['s', 'm', 'h'].some(char => result.contains(char)));
     }
 
     private static setContainsChar(result: string): Timer {
