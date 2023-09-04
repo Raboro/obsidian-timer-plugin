@@ -6,35 +6,13 @@ interface ITimerButtonsUi {
 }
 
 export default function TimerButtonsUi({ updateTimer }: ITimerButtonsUi) {
-    const timerButtonsSettings = useContext(TimerButtonsSettingsContext);
-    const handleButtonClick = (value: string) => updateTimer(value);
+    const { first, second, third, fourth } = useContext(TimerButtonsSettingsContext);
+    const settings = [first, second, third, fourth];
 
     return (
-        <div className="timerButtonsContainer">
-            <button onClick={() => handleButtonClick(`-${timerButtonsSettings.fourth}`)}>
-                -{timerButtonsSettings.fourth}
-            </button>
-            <button onClick={() => handleButtonClick(`-${timerButtonsSettings.third}`)}>
-                -{timerButtonsSettings.third}
-            </button>
-            <button onClick={() => handleButtonClick(`-${timerButtonsSettings.second}`)}>
-                -{timerButtonsSettings.second}
-            </button>
-            <button onClick={() => handleButtonClick(`-${timerButtonsSettings.first}`)}>
-                -{timerButtonsSettings.first}
-            </button>
-            <button onClick={() => handleButtonClick(`+${timerButtonsSettings.first}`)}>
-                +{timerButtonsSettings.first}
-            </button>
-            <button onClick={() => handleButtonClick(`+${timerButtonsSettings.second}`)}>
-                +{timerButtonsSettings.second}
-            </button>
-            <button onClick={() => handleButtonClick(`+${timerButtonsSettings.third}`)}>
-                +{timerButtonsSettings.third}
-            </button>
-            <button onClick={() => handleButtonClick(`+${timerButtonsSettings.fourth}`)}>
-                +{timerButtonsSettings.fourth}
-            </button>
+        <div className='timerButtonsContainer'>
+            {settings.reverse().map(v => <button key={`-${v}`} onClick={() => updateTimer(`-${v}`)}>-{v}</button>)}
+            {settings.reverse().map(v => <button key={`+${v}`} onClick={() => updateTimer(`+${v}`)}>+{v}</button>)}
         </div>
     );
 }
