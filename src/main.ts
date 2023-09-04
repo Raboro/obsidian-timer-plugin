@@ -1,6 +1,7 @@
-import { Plugin, WorkspaceLeaf } from 'obsidian';
+import { Notice, Plugin, WorkspaceLeaf } from 'obsidian';
 import { DEFAULT_SETTINGS, TimerSettings, TimerSettingsTab } from './settings/settings';
 import TimerView, { TIMER_VIEW_TYPE } from './views/view';
+import SetTimerModal from './modals/setTimerModal';
 
 
 export default class TimerPlugin extends Plugin {
@@ -24,7 +25,7 @@ export default class TimerPlugin extends Plugin {
         this.addCommand({
             id: 'set-timer-to',
             name: 'Set Timer To',
-            callback: () => console.log('Need to be implemented') // TODO need to be implemented with Model
+            callback: () => this.setTimerTo()
         });
     }
 
@@ -45,6 +46,12 @@ export default class TimerPlugin extends Plugin {
 		}
 		return leaves[0].view as TimerView;
 	}
+
+    private setTimerTo = () => {
+        new SetTimerModal(this.app, (result: string) => {
+            new Notice(result);
+        }).open();
+    }    
 
     async loadSettings() {
 		this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
