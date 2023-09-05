@@ -4,7 +4,6 @@ import TimerView, { TIMER_VIEW_TYPE } from './views/view';
 import SetTimerModal from './modals/setTimerModal';
 import Timer from './timer/timer';
 
-
 export default class TimerPlugin extends Plugin {
     settings: TimerSettings;
     timer: Timer;
