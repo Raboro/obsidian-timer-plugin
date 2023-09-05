@@ -7,6 +7,7 @@ import Timer from './timer/timer';
 
 export default class TimerPlugin extends Plugin {
     settings: TimerSettings;
+    timer: Timer;
 
     
     async onload() {
@@ -26,7 +27,7 @@ export default class TimerPlugin extends Plugin {
         this.addCommand({
             id: 'set-timer-to',
             name: 'Set Timer To',
-            callback: () => this.setTimerTo()
+            callback: async () => await this.setTimerTo()
         });
     }
 
@@ -48,9 +49,15 @@ export default class TimerPlugin extends Plugin {
 		return leaves[0].view as TimerView;
 	}
 
-    private setTimerTo = () => {
-        new SetTimerModal(this.app, (result: string) => {
-            console.log(Timer.set(result));
+    private setTimerTo = async () => {
+        new SetTimerModal(this.app, async (result: string) => {
+            this.timer = Timer.set(result);
+            const leaves: WorkspaceLeaf[] = this.app.workspace.getLeavesOfType(TIMER_VIEW_TYPE);
+            if (leaves.length == 0) {
+                return;
+            }
+            const view = leaves[0].view as TimerView;
+            await view.updateTimer(this.timer);
         }).open();
     };    
 

@@ -4,8 +4,12 @@ import ControlButtonsUi from './controlButtonsUi';
 import TimerButtonsUi from './timerButtonsUi';
 import Timer from 'src/timer/timer';
 
-export default function TimerUi() {
-    const [timer, setTimer] = useState(new Timer());
+interface ITimerUi {
+    timerInput: Timer;
+}
+
+export default function TimerUi({ timerInput }: ITimerUi) {
+    const [timer, setTimer] = useState(timerInput ?? new Timer());
 
     const updateTimer = (update: string) => {
         const updatedTimer = new Timer(timer);

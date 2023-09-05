@@ -2,9 +2,9 @@ import { App, ButtonComponent, Modal, Setting } from 'obsidian';
 
 export default class SetTimerModal extends Modal {
     private result: string;
-    private onSubmit: (result: string) => void;
+    private onSubmit: (result: string) => Promise<void>;
 
-    constructor(app: App, onSubmit: (result: string) => void) {
+    constructor(app: App, onSubmit: (result: string) => Promise<void>) {
         super(app);
         this.onSubmit = onSubmit;
     }
