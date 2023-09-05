@@ -63,13 +63,13 @@ export default class Timer {
 
     private static containsInvalidChar(split: string): boolean {
         return INVALID_CHARACTERS.some(char => {
-            return split.contains(char) || split.contains(char.toLowerCase())
+            return split.contains(char) || split.contains(char.toLowerCase());
         });
     }
 
     private static allNotTooBig(splitted: string[]) {
         return parseInt(splitted[0]) <= this.HOUR_MAX && parseInt(splitted[1]) <= this.MINUTES_MAX && 
-               parseInt(splitted[2]) <= this.SECONDS_MAX
+               parseInt(splitted[2]) <= this.SECONDS_MAX;
     }
 
     updateTimer(update: string): void {
@@ -185,7 +185,7 @@ class TimerUpdate {
 										'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Z', '|',
                                         ':', ',', ';'];
         return !invalidChars.some(char => {
-            this.updateValue.contains(char) || this.updateValue.contains(char.toLowerCase())
+            this.updateValue.contains(char) || this.updateValue.contains(char.toLowerCase());
         });
     }
 
