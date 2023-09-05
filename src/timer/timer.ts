@@ -184,9 +184,10 @@ class TimerUpdate {
         const invalidChars: string[] = ['A', 'B', 'C', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'N', 
 										'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Z', '|',
                                         ':', ',', ';'];
-        return !invalidChars.some(char => {
+        const noInvalidChars = !invalidChars.some(char => {
             this.updateValue.contains(char) || this.updateValue.contains(char.toLowerCase());
-        });
+        })
+        return noInvalidChars && ['h', 'm', 's'].some(unit => unit === this.timeUnit);
     }
 
     isReset(): boolean {
