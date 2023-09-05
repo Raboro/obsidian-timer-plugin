@@ -1,5 +1,5 @@
-import TimerDTO from "./timerDTO";
-import TimerUpdate from "./timerUpdate";
+import TimerDTO from './timerDTO';
+import TimerUpdate from './timerUpdate';
 
 export default class Timer {
     private static readonly HOUR_MAX: number = 99;

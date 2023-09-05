@@ -15,7 +15,7 @@ export default class TimerUpdate {
                                       ':', ',', ';'];
         const noInvalidChars = !INVALID_CHARACTERS.some(char => {
             this.updateValue.contains(char) || this.updateValue.contains(char.toLowerCase());
-        })
+        });
         return noInvalidChars && ['h', 'm', 's'].some(unit => unit === this.timeUnit);
     }
 
