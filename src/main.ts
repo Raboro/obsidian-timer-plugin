@@ -8,7 +8,6 @@ import Timer from './timer/timer';
 export default class TimerPlugin extends Plugin {
     settings: TimerSettings;
     timer: Timer;
-
     
     async onload() {
         await this.loadSettings();
