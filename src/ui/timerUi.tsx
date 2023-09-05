@@ -2,7 +2,7 @@ import { useState } from 'react';
 import ClockUi from './clockUi';
 import ControlButtonsUi from './controlButtonsUi';
 import TimerButtonsUi from './timerButtonsUi';
-import Timer from 'src/timer';
+import Timer from 'src/timer/timer';
 
 export default function TimerUi() {
     const [timer, setTimer] = useState(new Timer());

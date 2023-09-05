@@ -2,7 +2,7 @@ import { Plugin, WorkspaceLeaf } from 'obsidian';
 import { DEFAULT_SETTINGS, TimerSettings, TimerSettingsTab } from './settings/settings';
 import TimerView, { TIMER_VIEW_TYPE } from './views/view';
 import SetTimerModal from './modals/setTimerModal';
-import Timer from './timer';
+import Timer from './timer/timer';
 
 
 export default class TimerPlugin extends Plugin {

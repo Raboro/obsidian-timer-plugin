@@ -57,7 +57,7 @@ export default class Timer {
     }
 
     private static validSplitted(splitted: string[]): boolean {
-        const oneNoNumber = splitted.filter(split => this.containsInvalidChar(split)).length < 3;
+        const oneNoNumber = splitted.filter(split => !this.containsInvalidChar(split)).length < 3;
         return (oneNoNumber) ? false : this.allNotTooBig(splitted);
     }
 
