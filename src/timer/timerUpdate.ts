@@ -1,7 +1,3 @@
-const INVALID_CHARACTERS: string[] = ['A', 'B', 'C', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'N', 
-                                      'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Z', '|',
-                                      ':', ',', ';'];
-
 export default class TimerUpdate {
     private timeUnit: string;
     private updateValue: string;
@@ -14,6 +10,9 @@ export default class TimerUpdate {
     }
 
     isValid(): boolean {
+        const INVALID_CHARACTERS: string[] = ['A', 'B', 'C', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'N', 
+                                      'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Z', '|',
+                                      ':', ',', ';'];
         const noInvalidChars = !INVALID_CHARACTERS.some(char => {
             this.updateValue.contains(char) || this.updateValue.contains(char.toLowerCase());
         })
