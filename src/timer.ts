@@ -1,3 +1,7 @@
+const INVALID_CHARACTERS: string[] = ['A', 'B', 'C', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'N', 
+                                      'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Z', '|',
+                                      ':', ',', ';'];
+
 export default class Timer {
     private readonly HOUR_MAX: number = 99;
     private readonly MINUTES_MAX: number = 59;
@@ -49,7 +53,21 @@ export default class Timer {
         while (splitted.length < 3) {
             splitted.unshift('00');
         }
-        return new Timer(undefined, splitted);
+        return this.validSplitted(splitted) ? new Timer(undefined, splitted) : new Timer();
+    }
+
+    private static validSplitted(splitted: string[]): boolean {
+        const oneNoNumber = splitted.filter(split => this.containsInvalidChar(split)).length < 3;
+        if (oneNoNumber) {
+            return false;
+        }
+        return true;
+    }
+
+    private static containsInvalidChar(split: string): boolean {
+        return INVALID_CHARACTERS.some(char => {
+            return split.contains(char) || split.contains(char.toLowerCase())
+        });
     }
 
     updateTimer(update: string): void {
