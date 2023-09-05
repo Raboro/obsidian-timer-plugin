@@ -29,6 +29,7 @@ export default class Timer {
     }
 
     static set(result: string): Timer {
+        if (result === undefined) return new Timer();
         return this.containsChar(result) ? this.setContainsChar(result) : this.setWithoutChar(result);
     }
 
