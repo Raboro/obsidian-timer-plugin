@@ -3,9 +3,9 @@ const INVALID_CHARACTERS: string[] = ['A', 'B', 'C', 'E', 'F', 'G', 'H', 'I', 'J
                                       ':', ',', ';'];
 
 export default class Timer {
-    private readonly HOUR_MAX: number = 99;
-    private readonly MINUTES_MAX: number = 59;
-    private readonly SECONDS_MAX: number = 59;
+    private static readonly HOUR_MAX: number = 99;
+    private static readonly MINUTES_MAX: number = 59;
+    private static readonly SECONDS_MAX: number = 59;
 
     private hours: string;
     private minutes: string;
@@ -58,16 +58,18 @@ export default class Timer {
 
     private static validSplitted(splitted: string[]): boolean {
         const oneNoNumber = splitted.filter(split => this.containsInvalidChar(split)).length < 3;
-        if (oneNoNumber) {
-            return false;
-        }
-        return true;
+        return (oneNoNumber) ? false : this.allNotTooBig(splitted);
     }
 
     private static containsInvalidChar(split: string): boolean {
         return INVALID_CHARACTERS.some(char => {
             return split.contains(char) || split.contains(char.toLowerCase())
         });
+    }
+
+    private static allNotTooBig(splitted: string[]) {
+        return parseInt(splitted[0]) <= this.HOUR_MAX && parseInt(splitted[1]) <= this.MINUTES_MAX && 
+               parseInt(splitted[2]) <= this.SECONDS_MAX
     }
 
     updateTimer(update: string): void {
@@ -82,9 +84,9 @@ export default class Timer {
     }
 
     private setMaxValue(): void {
-        this.hours = this.HOUR_MAX.toString();
-        this.minutes = this.MINUTES_MAX.toString();
-        this.seconds = this.SECONDS_MAX.toString();
+        this.hours = Timer.HOUR_MAX.toString();
+        this.minutes = Timer.MINUTES_MAX.toString();
+        this.seconds = Timer.SECONDS_MAX.toString();
     }
 
     private update(timerUpdate: TimerUpdate): void {
@@ -95,12 +97,12 @@ export default class Timer {
 
     private updateSeconds(updatedValue: string): void {
         const mergedValue = this.merge(updatedValue, this.seconds);
-        if (this.validNewValue(mergedValue, this.SECONDS_MAX)) {
+        if (this.validNewValue(mergedValue, Timer.SECONDS_MAX)) {
             this.seconds = mergedValue;
         } else {
             const negative = parseInt(mergedValue) <= 0;
-            if (this.updateMinutes(this.getUpdateForNext(negative, mergedValue, this.SECONDS_MAX))) {
-                this.seconds = this.getUpdateForCurrent(negative, mergedValue, this.SECONDS_MAX);     
+            if (this.updateMinutes(this.getUpdateForNext(negative, mergedValue, Timer.SECONDS_MAX))) {
+                this.seconds = this.getUpdateForCurrent(negative, mergedValue, Timer.SECONDS_MAX);     
             }
         }
     }
@@ -131,13 +133,13 @@ export default class Timer {
 
     private updateMinutes(updatedValue: string): boolean {
         const mergedValue = this.merge(updatedValue, this.minutes);
-        if (this.validNewValue(mergedValue, this.MINUTES_MAX)) {
+        if (this.validNewValue(mergedValue, Timer.MINUTES_MAX)) {
             this.minutes = mergedValue;
             return true;
         } else {
             const negative = parseInt(mergedValue) <= 0;
-            if (this.updateHour(this.getUpdateForNext(negative, mergedValue, this.MINUTES_MAX))) {
-                this.minutes = this.getUpdateForCurrent(negative, mergedValue, this.MINUTES_MAX);
+            if (this.updateHour(this.getUpdateForNext(negative, mergedValue, Timer.MINUTES_MAX))) {
+                this.minutes = this.getUpdateForCurrent(negative, mergedValue, Timer.MINUTES_MAX);
                 return true;
             }     
         }
@@ -146,7 +148,7 @@ export default class Timer {
 
     private updateHour(updateValue: string): boolean {
         const mergedValue = this.merge(updateValue, this.hours);
-        if (this.validNewValue(mergedValue, this.HOUR_MAX)) {
+        if (this.validNewValue(mergedValue, Timer.HOUR_MAX)) {
             this.hours = mergedValue;
             return true;
         }
