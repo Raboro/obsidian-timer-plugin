@@ -23,6 +23,10 @@ export default class TimerView extends ItemView {
 
     async updateTimer(timer: Timer): Promise<void> {
         this.timer = timer;
+        await this.reload();
+    }
+
+    private async reload() {
         await this.onClose();
         this.root = createRoot(this.container);
         this.renderRoot();
@@ -30,9 +34,7 @@ export default class TimerView extends ItemView {
 
     async updateSettings(timerButtonsSettings: TimerButtonsSettings) {
         this.timerButtonsSettings = timerButtonsSettings;
-        await this.onClose();
-        this.root = createRoot(this.container);
-        this.renderRoot();
+        await this.reload();
     }
 
     private renderRoot() {
