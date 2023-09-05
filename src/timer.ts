@@ -35,8 +35,13 @@ export default class Timer {
     private static setContainsChar(result: string): Timer {
         const matches = result.match(/(\d+[smh]?)/g);
         const timer = new Timer();
-        matches?.forEach(match => timer.updateTimer(match));
+        matches?.filter(match => this.validUpdate(match)).forEach(match => timer.updateTimer(match));
         return timer;
+    }
+
+    private static validUpdate(match: string): boolean {
+        const timerUpdate = new TimerUpdate(match, 0);
+        return timerUpdate.isValid() && !timerUpdate.isTooBig();
     }
 
     private static setWithoutChar(result: string): Timer {
@@ -153,6 +158,15 @@ class TimerUpdate {
         this.timeUnit = update.charAt(update.length-1);
         this.updateValue = update.substring(0, update.length-1);
         this.current = current;
+    }
+
+    isValid(): boolean {
+        const invalidChars: string[] = ['A', 'B', 'C', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'N', 
+										'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Z', '|',
+                                        ':', ',', ';'];
+        return !invalidChars.some(char => {
+            this.updateValue.contains(char) || this.updateValue.contains(char.toLowerCase())
+        });
     }
 
     isReset(): boolean {
