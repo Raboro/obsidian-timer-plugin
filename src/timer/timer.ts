@@ -1,3 +1,4 @@
+import TimerDTO from "./timerDTO";
 import TimerUpdate from "./timerUpdate";
 
 export default class Timer {
@@ -165,8 +166,4 @@ export default class Timer {
         const format = (value: string) => value.padStart(2, '0');
         return `${format(this.hours)}:${format(this.minutes)}:${format(this.seconds)}`;
     }
-}
-
-export class TimerDTO {
-    constructor(readonly hours: string, readonly minutes: string, readonly seconds: string) {}
 }
