@@ -2,45 +2,45 @@ import { useState } from 'react';
 
 interface IControlButtonsUi {
     resetTimer: () => void;
+    startTimer: () => void;
+    stopTimer: () => void;
 }
 
-export default function ControlButtonsUi({ resetTimer }: IControlButtonsUi) {
+export default function ControlButtonsUi({ resetTimer, startTimer, stopTimer }: IControlButtonsUi) {
     const [startDisplay, setStartDisplay] = useState(true);
     const [resetDisplay, setResetDisplay] = useState(true);
     const [cancelDisplay, setCancelDisplay] = useState(false);
     const [pauseDisplay, setPauseDisplay] = useState(false);
     const [pauseName, setPauseName] = useState('Pause');
 
-    function switchDisplay() {
-        setStartDisplay(prevDisplay => !prevDisplay);
-        setResetDisplay(prevDisplay => !prevDisplay);
-        setCancelDisplay(prevDisplay => !prevDisplay);
-        setPauseDisplay(prevDisplay => !prevDisplay); 
-    }
+    const switchDisplay = () => {
+        setStartDisplay((prevDisplay) => !prevDisplay);
+        setResetDisplay((prevDisplay) => !prevDisplay);
+        setCancelDisplay((prevDisplay) => !prevDisplay);
+        setPauseDisplay((prevDisplay) => !prevDisplay);
+    };
 
-    function start() {
+    const start = () => {
         switchDisplay();
         setPauseName('Pause');
-        // TODO trigger ClockUi here
-    }
+        startTimer();
+    };
 
-    function reset() {
-        resetTimer();
-    }
-
-    function cancel() {
+    const cancel = () => {
         switchDisplay();
-        // TODO trigger ClockUi here
-    }
+        stopTimer();
+    };
 
-    function pause() {
-        setPauseName(name => name == 'Pause' ? 'Resume' : 'Pause');
-    }
+    const pause = () => {
+        if (pauseName == 'Pause') stopTimer();
+        else startTimer();
+        setPauseName((name) => (name === 'Pause' ? 'Resume' : 'Pause'));
+    };
 
     return <div className="controlButtonsContainer">
-        {startDisplay && <button onClick={start}>Start</button>}
-        {resetDisplay && <button onClick={reset}>Reset</button>}
+        {startDisplay  && <button onClick={start}>Start</button>}
+        {resetDisplay  && <button onClick={resetTimer}>Reset</button>}
         {cancelDisplay && <button onClick={cancel}>Cancel</button>}
-        {pauseDisplay && <button onClick={pause}>{pauseName}</button>}
-    </div>;
+        {pauseDisplay  && <button onClick={pause}>{pauseName}</button>}
+    </div>
 }
