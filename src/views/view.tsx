@@ -23,25 +23,25 @@ export default class TimerView extends ItemView {
 
     async updateTimer(timer: Timer): Promise<void> {
         this.timer = timer;
-        await this.reload();
+        await this.reload(false);
     }
 
-    private async reload() {
+    private async reload(updatedSettings: boolean) {
         await this.onClose();
         this.root = createRoot(this.container);
-        this.renderRoot();
+        this.renderRoot(updatedSettings);
     }
 
     async updateSettings(timerButtonsSettings: TimerButtonsSettings) {
         this.timerButtonsSettings = timerButtonsSettings;
-        await this.reload();
+        await this.reload(true);
     }
 
-    private renderRoot() {
+    private renderRoot(updatedSettings: boolean) {
         this.root.render(
             <React.StrictMode>
                 <TimerButtonsSettingsContext.Provider value={this.timerButtonsSettings}>
-                    <TimerUi timerInput={this.timer}/>
+                    <TimerUi timerInput={this.timer} updatedSettings={updatedSettings}/>
                 </TimerButtonsSettingsContext.Provider>
             </React.StrictMode>
         );
@@ -62,7 +62,7 @@ export default class TimerView extends ItemView {
         if (!this.root) {
             this.root = createRoot(this.container);
         }
-        this.renderRoot();
+        this.renderRoot(false);
     }
 
     protected async onClose(): Promise<void> {

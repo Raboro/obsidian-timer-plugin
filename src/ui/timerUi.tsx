@@ -7,10 +7,20 @@ import Timer from 'src/timer/timer';
 
 interface ITimerUi {
   timerInput: Timer | null;
+  updatedSettings: boolean;
 }
 
-export default function TimerUi({ timerInput }: ITimerUi) {
-    const [timer, setTimer] = useState(timerInput ?? new Timer());
+export default function TimerUi({ timerInput, updatedSettings }: ITimerUi) {
+    
+    const getStartState = (): Timer => {
+        let timerValue = null;
+        if (!updatedSettings) {
+            timerValue = timerInput ?? new Timer();
+        }
+        return timerValue ?? new Timer();
+    };
+
+    const [timer, setTimer] = useState(getStartState());
     const [timerExpired, setTimerExpired] = useState(false);
     const intervalIdRef = useRef<NodeJS.Timeout | null>(null); 
 
