@@ -25,8 +25,8 @@ export default function TimerUi({ timerInput }: ITimerUi) {
         intervalIdRef.current = setInterval(() => {
             timer.updateTimer('-1s');
             setTimer(new Timer(timer));
-            if (timer.isFinished()) {
-                clearInterval(intervalIdRef.current!);
+            if (timer.isFinished() && intervalIdRef.current) {
+                clearInterval(intervalIdRef.current);
                 setTimerExpired(true);
             }
         }, 1000);
@@ -37,14 +37,18 @@ export default function TimerUi({ timerInput }: ITimerUi) {
     };
 
     const resetTimer = () => {
-        clearInterval(intervalIdRef.current!);
-        setTimer(new Timer());
-        setTimerExpired(false); 
+        if (intervalIdRef.current) {
+            clearInterval(intervalIdRef.current);
+            setTimer(new Timer());
+            setTimerExpired(false); 
+        }
     };
 
     useEffect(() => {
         if (!timerInput) startTimer();
-        return () => clearInterval(intervalIdRef.current!);
+        return () => {
+            if (intervalIdRef.current) clearInterval(intervalIdRef.current);
+        };
     }, [timerInput]);
 
     useEffect(() => {

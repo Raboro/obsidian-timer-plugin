@@ -42,5 +42,5 @@ export default function ControlButtonsUi({ resetTimer, startTimer, stopTimer }: 
         {resetDisplay  && <button onClick={resetTimer}>Reset</button>}
         {cancelDisplay && <button onClick={cancel}>Cancel</button>}
         {pauseDisplay  && <button onClick={pause}>{pauseName}</button>}
-    </div>
+    </div>;
 }
