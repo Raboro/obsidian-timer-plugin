@@ -50,13 +50,16 @@ export default class TimerPlugin extends Plugin {
     private setTimerTo = async () => {
         new SetTimerModal(this.app, async (result: string) => {
             this.timer = Timer.set(result);
-            this.reload();
+            this.reload(false);
         }).open();
     };    
 
-    private async reload(): Promise<void> {
+    private async reload(updatedSettings: boolean): Promise<void> {
         const leaves: WorkspaceLeaf[] = this.app.workspace.getLeavesOfType(TIMER_VIEW_TYPE);
-        if (leaves.length != 0) await (leaves[0].view as TimerView).updateTimer(this.timer);
+        if (leaves.length == 0) return;
+        const view = (leaves[0].view as TimerView);
+        if (updatedSettings) await view.updateSettings(this.settings.timerButtonsSettings);
+        else await view.updateTimer(this.timer);
     }
 
     async loadSettings() {
@@ -65,6 +68,6 @@ export default class TimerPlugin extends Plugin {
 
 	async saveSettings() {
 		await this.saveData(this.settings);
-        this.reload();
+        this.reload(true);
 	}
 }
