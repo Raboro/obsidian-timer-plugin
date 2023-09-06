@@ -158,6 +158,10 @@ export default class Timer {
         return false;
     }
 
+    isFinished(): boolean {
+        return this.hours == '00' && this.minutes == '00' && this.seconds == '00';
+    }
+
     access(): TimerDTO {
         return new TimerDTO(this.hours, this.minutes, this.seconds);
     }
