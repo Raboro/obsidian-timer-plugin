@@ -66,8 +66,8 @@ export default function TimerUi({ timerInput, updatedSettings }: ITimerUi) {
     useEffect(() => {
         if (timerExpired) {
             setSwitchControlButtons(true);
-            new Notice('Timer is finished!!')
-        };
+            new Notice('Timer is finished!!');
+        }
     }, [timerExpired]);
 
     return <>
