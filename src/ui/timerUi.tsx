@@ -22,7 +22,8 @@ export default function TimerUi({ timerInput, updatedSettings }: ITimerUi) {
 
     const [timer, setTimer] = useState(getStartState());
     const [timerExpired, setTimerExpired] = useState(false);
-    const intervalIdRef = useRef<NodeJS.Timeout | null>(null); 
+    const [switchControlButtons, setSwitchControlButtons] = useState(false); 
+    const intervalIdRef = useRef<NodeJS.Timeout | null>(null);
 
     const updateTimer = (update: string) => {
         timer.updateTimer(update);
@@ -30,6 +31,7 @@ export default function TimerUi({ timerInput, updatedSettings }: ITimerUi) {
     };
 
     const startTimer = () => {
+        setSwitchControlButtons(false);
         if (timer.isFinished()) return;
         if (intervalIdRef.current) clearInterval(intervalIdRef.current);
         intervalIdRef.current = setInterval(() => {
@@ -62,12 +64,20 @@ export default function TimerUi({ timerInput, updatedSettings }: ITimerUi) {
     }, [timerInput]);
 
     useEffect(() => {
-        if (timerExpired) new Notice('Timer is finished!!');
+        if (timerExpired) {
+            setSwitchControlButtons(true);
+            new Notice('Timer is finished!!')
+        };
     }, [timerExpired]);
 
     return <>
         <ClockUi timer={timer.access()} />
         <TimerButtonsUi updateTimer={updateTimer} />
-        <ControlButtonsUi resetTimer={resetTimer} startTimer={startTimer} stopTimer={stopTimer} />
+        <ControlButtonsUi 
+            resetTimer={resetTimer} 
+            startTimer={startTimer} 
+            stopTimer={stopTimer} 
+            switchControlButtons={switchControlButtons}
+        />
     </>;
 }

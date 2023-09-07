@@ -4,14 +4,26 @@ interface IControlButtonsUi {
     resetTimer: () => void;
     startTimer: () => void;
     stopTimer: () => void;
+    switchControlButtons: boolean
 }
 
-export default function ControlButtonsUi({ resetTimer, startTimer, stopTimer }: IControlButtonsUi) {
+export default function ControlButtonsUi({ resetTimer, startTimer, stopTimer, 
+                                            switchControlButtons }: IControlButtonsUi) {
     const [startDisplay, setStartDisplay] = useState(true);
     const [resetDisplay, setResetDisplay] = useState(true);
     const [cancelDisplay, setCancelDisplay] = useState(false);
     const [pauseDisplay, setPauseDisplay] = useState(false);
     const [pauseName, setPauseName] = useState('Pause');
+
+    const allSwitch = () => startDisplay && resetDisplay && !cancelDisplay && !pauseDisplay && pauseName == 'Pause';
+
+    if (switchControlButtons && !allSwitch()) {
+        setStartDisplay(true);
+        setResetDisplay(true);
+        setCancelDisplay(false);
+        setPauseDisplay(false);
+        setPauseName('Pause');
+    }
 
     const switchDisplay = () => {
         setStartDisplay((prevDisplay) => !prevDisplay);
