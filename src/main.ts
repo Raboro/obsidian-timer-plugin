@@ -39,6 +39,11 @@ export default class TimerPlugin extends Plugin {
             name: 'Use One Of Favorite Timers',
             callback: async () => await this.useOneOfFavoriteTimers()
         });
+        this.addCommand({
+            id: 'remove-one-of-favorite-timers',
+            name: 'Remove One Of Favorite Timers',
+            callback: async () => await this.removeOneOfFavoriteTimers()
+        });
     }
 
     onunload() {
@@ -88,6 +93,13 @@ export default class TimerPlugin extends Plugin {
         new ChooseFavoriteTimerModal(this.app, this.settings.favoriteTimers, async (timer: string) => {
             this.timer = Timer.set(timer);
             this.reload(false);
+        }).open();
+    }
+
+    private removeOneOfFavoriteTimers = async () => {
+        new ChooseFavoriteTimerModal(this.app, this.settings.favoriteTimers, async (timer: string) => {
+            this.settings.favoriteTimers.remove(timer);
+            this.saveSettings();
         }).open();
     }
 
