@@ -1,9 +1,8 @@
 import { Plugin, WorkspaceLeaf } from 'obsidian';
 import { DEFAULT_SETTINGS, TimerSettings, TimerSettingsTab } from './settings/settings';
 import TimerView, { TIMER_VIEW_TYPE } from './views/view';
-import SetTimerModal from './modals/setTimerModal';
 import Timer from './timer/timer';
-import AddFavoriteTimerModal from './modals/addFavoriteTimerModal';
+import AbstractTimerModal from './modals/abstractTimerModal';
 import ChooseFavoriteTimerModal from './modals/chooseFavoriteTimerModal';
 
 export default class TimerPlugin extends Plugin {
@@ -65,7 +64,7 @@ export default class TimerPlugin extends Plugin {
 	}
 
     private setTimerTo = async () => {
-        new SetTimerModal(this.app, async (result: string) => {
+        new AbstractTimerModal(this.app, 'Set timer to:', 'Insert new timer in two ways:', async (result: string) => {
             this.timer = Timer.set(result);
             this.reload(false);
         }).open();
@@ -80,13 +79,18 @@ export default class TimerPlugin extends Plugin {
     }
 
     private addFavoriteTimer = async () => {
-        new AddFavoriteTimerModal(this.app, async (result: string) => {
-            const newFavoriteTimer = Timer.set(result);
-            if (!this.settings.favoriteTimers.contains(newFavoriteTimer.toString())) {
-                this.settings.favoriteTimers.push(newFavoriteTimer.toString());
-                this.saveSettings();
-            }
-        }).open();
+        new AbstractTimerModal(
+                this.app, 
+                'Add favorite timer:', 
+                'Add another favorite timer in two ways: ',
+                async (result: string) => {
+                    const newFavoriteTimer = Timer.set(result);
+                    if (!this.settings.favoriteTimers.contains(newFavoriteTimer.toString())) {
+                        this.settings.favoriteTimers.push(newFavoriteTimer.toString());
+                        this.saveSettings();
+                    }
+                } 
+        ).open();
     }
 
     private useOneOfFavoriteTimers = async () => {

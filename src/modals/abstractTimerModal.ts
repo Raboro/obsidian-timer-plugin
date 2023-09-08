@@ -1,17 +1,21 @@
-import { App, ButtonComponent, Modal, Setting } from "obsidian"
+import { App, ButtonComponent, Modal, Setting } from "obsidian";
 
-export default class AddFavoriteTimerModal extends Modal {
+export default class AbstractTimerModal extends Modal {
     private result: string;
+    private title: string;
+    private description: string;
     private onSubmit: (result: string) => Promise<void>;
 
-    constructor(app: App, onSubmit: (result: string) => Promise<void>) {
+    constructor(app: App, title: string, description: string, onSubmit: (result: string) => Promise<void>) {
         super(app);
+        this.title = title;
+        this.description = description;
         this.onSubmit = onSubmit;
     }
 
     onOpen(): void {
         const { contentEl } = this;
-        contentEl.createEl('h1', { text: 'Add favorite timer:' });
+        contentEl.createEl('h1', { text: this.title });
         this.addSettings(contentEl);
     }
 
@@ -24,7 +28,7 @@ export default class AddFavoriteTimerModal extends Modal {
 
     private createFragment(contentEl: HTMLElement): DocumentFragment {
         const fragment = new DocumentFragment();
-        fragment.appendChild(contentEl.createEl('h4', { text: 'Add another favorite timer in two ways: ' }));
+        fragment.appendChild(contentEl.createEl('h4', { text: this.description }));
         fragment.appendChild(contentEl.createEl('p', { text: '1. In time notation: HH:MM:SS.' }));
         fragment.appendChild(contentEl.createEl('p', { text: '2. With letters: 00h00m00s.' }));
         return fragment;
