@@ -73,7 +73,7 @@ export default class TimerPlugin extends Plugin {
             const newFavoriteTimer = Timer.set(result);
             if (!this.settings.favoriteTimers.contains(newFavoriteTimer.toString())) {
                 this.settings.favoriteTimers.push(newFavoriteTimer.toString());
-                await this.saveSettings();
+                this.saveSettings();
             }
         }).open();
     }
