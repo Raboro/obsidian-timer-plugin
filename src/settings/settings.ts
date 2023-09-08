@@ -9,10 +9,12 @@ export class TimerButtonsSettings {
 
 export interface TimerSettings {
     timerButtonsSettings: TimerButtonsSettings;
+    favoriteTimers: string[];
 }
 
 export const DEFAULT_SETTINGS: TimerSettings = {
-    timerButtonsSettings: new TimerButtonsSettings('1s', '1m', '10m', '1h')
+    timerButtonsSettings: new TimerButtonsSettings('1s', '1m', '10m', '1h'),
+    favoriteTimers: []
 };
 
 export class TimerSettingsTab extends PluginSettingTab {
