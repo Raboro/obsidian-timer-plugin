@@ -1,4 +1,4 @@
-import { App, FuzzySuggestModal } from "obsidian"
+import { App, FuzzySuggestModal } from 'obsidian';
 
 export default class ChooseFavoriteTimerModal extends FuzzySuggestModal<string> {
     private timers: string[];

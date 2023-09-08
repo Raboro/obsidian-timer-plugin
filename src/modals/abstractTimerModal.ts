@@ -1,4 +1,4 @@
-import { App, ButtonComponent, Modal, Setting } from "obsidian";
+import { App, ButtonComponent, Modal, Setting } from 'obsidian';
 
 export default class AbstractTimerModal extends Modal {
     private result: string;
@@ -34,7 +34,7 @@ export default class AbstractTimerModal extends Modal {
         return fragment;
     }
 
-    setButton(button: ButtonComponent): any {
+    setButton(button: ButtonComponent): void {
         button
             .setButtonText('Submit')
             .setCta()

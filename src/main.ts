@@ -91,21 +91,21 @@ export default class TimerPlugin extends Plugin {
                     }
                 } 
         ).open();
-    }
+    };
 
     private useOneOfFavoriteTimers = async () => {
         new ChooseFavoriteTimerModal(this.app, this.settings.favoriteTimers, async (timer: string) => {
             this.timer = Timer.set(timer);
             this.reload(false);
         }).open();
-    }
+    };
 
     private removeOneOfFavoriteTimers = async () => {
         new ChooseFavoriteTimerModal(this.app, this.settings.favoriteTimers, async (timer: string) => {
             this.settings.favoriteTimers.remove(timer);
             this.saveSettings();
         }).open();
-    }
+    };
 
     async loadSettings() {
 		this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
