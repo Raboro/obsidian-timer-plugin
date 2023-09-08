@@ -4,6 +4,7 @@ import TimerView, { TIMER_VIEW_TYPE } from './views/view';
 import SetTimerModal from './modals/setTimerModal';
 import Timer from './timer/timer';
 import AddFavoriteTimerModal from './modals/addFavoriteTimerModal';
+import ChooseFavoriteTimerModal from './modals/chooseFavoriteTimerModal';
 
 export default class TimerPlugin extends Plugin {
     settings: TimerSettings;
@@ -32,6 +33,11 @@ export default class TimerPlugin extends Plugin {
             id: 'add-favorite-timer',
             name: 'Add Favorite Timer',
             callback: async () => await this.addFavoriteTimer()
+        });
+        this.addCommand({
+            id: 'use-one-of-favorite-timers',
+            name: 'Use One Of Favorite Timers',
+            callback: async () => await this.useOneOfFavoriteTimers()
         });
     }
 
@@ -75,6 +81,13 @@ export default class TimerPlugin extends Plugin {
                 this.settings.favoriteTimers.push(newFavoriteTimer.toString());
                 this.saveSettings();
             }
+        }).open();
+    }
+
+    private useOneOfFavoriteTimers = async () => {
+        new ChooseFavoriteTimerModal(this.app, this.settings.favoriteTimers, async (timer: string) => {
+            this.timer = Timer.set(timer);
+            this.reload(false);
         }).open();
     }
 
