@@ -12,5 +12,5 @@ export default function TimerButtonsUi({ updateTimer }: ITimerButtonsUi) {
     return <div className='timerButtonsContainer'>
         {settings.reverse().map(v => <button key={`-${v}`} onClick={() => updateTimer(`-${v}`)}>-{v}</button>)}
         {settings.reverse().map(v => <button key={`+${v}`} onClick={() => updateTimer(`+${v}`)}>+{v}</button>)}
-    </div>
+    </div>;
 }
