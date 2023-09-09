@@ -21,7 +21,7 @@ export default class Timer {
         this.seconds = splitted[2];
     }
 
-    private initValues(timer?: Timer) {
+    private initValues(timer?: Timer): void {
         this.hours = timer?.hours ?? '00';
         this.minutes = timer?.minutes ?? '00';
         this.seconds = timer?.seconds ?? '00';
@@ -32,7 +32,7 @@ export default class Timer {
         return this.containsChar(result) ? this.setContainsChar(result) : this.setWithoutChar(result);
     }
 
-    private static containsChar(result: string) {
+    private static containsChar(result: string): boolean {
         return (['s', 'm', 'h'].some(char => result.contains(char)));
     }
 
@@ -70,7 +70,7 @@ export default class Timer {
         });
     }
 
-    private static allNotTooBig(splitted: string[]) {
+    private static allNotTooBig(splitted: string[]): boolean {
         return parseInt(splitted[0]) <= this.HOUR_MAX && parseInt(splitted[1]) <= this.MINUTES_MAX && 
                parseInt(splitted[2]) <= this.SECONDS_MAX;
     }
