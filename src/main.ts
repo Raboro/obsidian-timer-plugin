@@ -60,7 +60,7 @@ export default class TimerPlugin extends Plugin {
 	}
 
     private setTimerTo = async () => {
-        new AbstractTimerModal(this.app, 'Set timer to:', 'Insert new timer in two ways:', async (result: string) => {
+        new AbstractTimerModal(this.app, 'Set timer to', 'Insert new timer in two ways:', async (result: string) => {
             this.timer = Timer.set(result);
             this.reload(false);
         }).open();
@@ -77,7 +77,7 @@ export default class TimerPlugin extends Plugin {
     private addFavoriteTimer = async () => {
         new AbstractTimerModal(
                 this.app, 
-                'Add favorite timer:', 
+                'Add favorite timer', 
                 'Add another favorite timer in two ways: ',
                 async (result: string) => {
                     const newFavoriteTimer = Timer.set(result);
