@@ -26,18 +26,18 @@ export class TimerSettingsTab extends PluginSettingTab {
         this.changeTimerButtonSetting = this.changeTimerButtonSetting.bind(this);
     }
 
-    display() {
+    display(): void {
         this.containerEl.empty();
         this.timerButtonsSettings();
     }
 
-    private timerButtonsSettings() {
+    private timerButtonsSettings(): void {
         for (let i = 0; i < 4; i++) {
             this.constructTimerButtonSetting(i);
         }
     }
 
-    private constructTimerButtonSetting(i: number) {
+    private constructTimerButtonSetting(i: number): Setting {
         return new Setting(this.containerEl)
             .setName(`${i+1} timer button value`)
             .setDesc(`Set the value which increases / decreases the timer if clicking on the ${i+1} timer button. 
@@ -54,7 +54,7 @@ export class TimerSettingsTab extends PluginSettingTab {
         return [settings.first, settings.second, settings.third, settings.fourth][index];
     }
 
-    private async changeTimerButtonSetting(value: string, index: number) {
+    private async changeTimerButtonSetting(value: string, index: number): Promise<void> {
         if (this.isInvalidValue(value)) {
             new Notice('Invalid value');
             return;
@@ -62,7 +62,7 @@ export class TimerSettingsTab extends PluginSettingTab {
         await this.updateTimerButtonSetting(value, index);
     }
 
-    private isInvalidValue(value: string) {
+    private isInvalidValue(value: string): boolean {
         if (value.length == 0) return true;
         const invalidLastChar = !['s', 'm', 'h'].contains(value.charAt(value.length-1));
         const invalidPrefix = !/^\d+$/.test(value.slice(0, value.length-1));
@@ -70,7 +70,7 @@ export class TimerSettingsTab extends PluginSettingTab {
         return invalidLastChar || invalidPrefix || valueTooLow;
     }
 
-    private async updateTimerButtonSetting(value: string, index: number) {
+    private async updateTimerButtonSetting(value: string, index: number): Promise<void> {
         const properties = ['first', 'second', 'third', 'fourth'];
         this.plugin.settings.timerButtonsSettings[properties[index]] = value;
         await this.plugin.saveSettings();
