@@ -31,8 +31,8 @@ export default function TimerUi({ timerInput, updatedSettings }: ITimerUi) {
     };
 
     const startTimer = () => {
+        if (timer.isFinished()) return false;
         setSwitchControlButtons(false);
-        if (timer.isFinished()) return;
         if (intervalIdRef.current) clearInterval(intervalIdRef.current);
         intervalIdRef.current = setInterval(() => {
             timer.updateTimer('-1s');
@@ -42,6 +42,7 @@ export default function TimerUi({ timerInput, updatedSettings }: ITimerUi) {
                 setTimerExpired(true);
             }
         }, 1000);
+        return true;
     };
 
     const stopTimer = () => {

@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 interface IControlButtonsUi {
     resetTimer: () => void;
-    startTimer: () => void;
+    startTimer: () => boolean;
     stopTimer: () => void;
     switchControlButtons: boolean
 }
@@ -33,9 +33,10 @@ export default function ControlButtonsUi({ resetTimer, startTimer, stopTimer,
     };
 
     const start = () => {
-        switchDisplay();
-        setPauseName('Pause');
-        startTimer();
+        if (startTimer()) {
+            switchDisplay();
+            setPauseName('Pause');
+        }
     };
 
     const cancel = () => {
