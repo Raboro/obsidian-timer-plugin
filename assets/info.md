@@ -1,1 +1,0 @@
-Insert images and other resources
