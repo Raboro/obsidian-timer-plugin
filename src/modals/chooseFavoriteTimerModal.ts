@@ -21,5 +21,4 @@ export default class ChooseFavoriteTimerModal extends FuzzySuggestModal<string> 
     onChooseItem(item: string, evt: MouseEvent | KeyboardEvent): void {
         this.onSubmit(item);
     }
-   
 }
