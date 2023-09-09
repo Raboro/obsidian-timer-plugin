@@ -26,18 +26,18 @@ export default class TimerView extends ItemView {
         await this.reload(false);
     }
 
-    private async reload(updatedSettings: boolean) {
+    private async reload(updatedSettings: boolean): Promise<void> {
         await this.onClose();
         this.root = createRoot(this.container);
         this.renderRoot(updatedSettings);
     }
 
-    async updateSettings(timerButtonsSettings: TimerButtonsSettings) {
+    async updateSettings(timerButtonsSettings: TimerButtonsSettings): Promise<void> {
         this.timerButtonsSettings = timerButtonsSettings;
         await this.reload(true);
     }
 
-    private renderRoot(updatedSettings: boolean) {
+    private renderRoot(updatedSettings: boolean): void {
         this.root.render(
             <React.StrictMode>
                 <TimerButtonsSettingsContext.Provider value={this.timerButtonsSettings}>
@@ -68,5 +68,4 @@ export default class TimerView extends ItemView {
     protected async onClose(): Promise<void> {
         this.root.unmount();
     }
-
 }
