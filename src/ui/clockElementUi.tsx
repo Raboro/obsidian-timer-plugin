@@ -3,7 +3,5 @@ interface IClockElementUi {
 }
 
 export default function ClockElementUi({ char }: IClockElementUi) {
-    return <div className="clockElement">
-        <h3>{char}</h3>
-    </div>;
+    return <div className="clockElement"><h3>{char}</h3></div>;
 }
