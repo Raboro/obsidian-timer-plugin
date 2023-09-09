@@ -1,6 +1,6 @@
 import ClockElementSeparatorUi from './clockElementSeparatorUi';
 import ClockElementUi from './clockElementUi';
-import ClockHeaderTextUi from './clockTextElementUi';
+import ClockHeaderTextUi from './clockHeaderTextUi';
 import TimerDTO from 'src/timer/timerDTO';
 
 interface IClockUi {
