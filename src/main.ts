@@ -20,27 +20,27 @@ export default class TimerPlugin extends Plugin {
     private addCommands(): void {
         this.addCommand({
             id: 'open-timer',
-            name: 'Open Timer',
+            name: 'Open timer',
             callback: async () => await this.openView()
         });
         this.addCommand({
             id: 'set-timer-to',
-            name: 'Set Timer To',
+            name: 'Set timer to',
             callback: async () => await this.setTimerTo()
         });
         this.addCommand({
             id: 'add-favorite-timer',
-            name: 'Add Favorite Timer',
+            name: 'Add favorite timer',
             callback: async () => await this.addFavoriteTimer()
         });
         this.addCommand({
             id: 'use-one-of-favorite-timers',
-            name: 'Use One Of Favorite Timers',
+            name: 'Use one of favorite timers',
             callback: async () => await this.useOneOfFavoriteTimers()
         });
         this.addCommand({
             id: 'remove-one-of-favorite-timers',
-            name: 'Remove One Of Favorite Timers',
+            name: 'Remove one of favorite timers',
             callback: async () => await this.removeOneOfFavoriteTimers()
         });
     }
