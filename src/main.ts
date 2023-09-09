@@ -9,7 +9,7 @@ export default class TimerPlugin extends Plugin {
     settings: TimerSettings;
     timer: Timer;
     
-    async onload() {
+    async onload(): Promise<void> {
         await this.loadSettings();
         this.registerView(TIMER_VIEW_TYPE, (leaf) => new TimerView(leaf, this.settings.timerButtonsSettings));
         this.addRibbonIcon('alarm-clock', 'Open Timer', async () => await this.openView());
@@ -17,7 +17,7 @@ export default class TimerPlugin extends Plugin {
         this.addSettingTab(new TimerSettingsTab(this.app, this));
     }
 
-    private addCommands() {
+    private addCommands(): void {
         this.addCommand({
             id: 'open-timer',
             name: 'Open Timer',
@@ -107,11 +107,11 @@ export default class TimerPlugin extends Plugin {
         }).open();
     };
 
-    async loadSettings() {
+    async loadSettings(): Promise<void> {
 		this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
 	}
 
-	async saveSettings() {
+	async saveSettings(): Promise<void> {
 		await this.saveData(this.settings);
         this.reload(true);
 	}
