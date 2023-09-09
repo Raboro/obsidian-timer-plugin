@@ -19,7 +19,7 @@ export default class AbstractTimerModal extends Modal {
         this.addSettings(contentEl);
     }
 
-    addSettings(contentEl: HTMLElement) {
+    addSettings(contentEl: HTMLElement): void {
         new Setting(contentEl)
             .setName(this.createFragment(contentEl))
             .addText(text => text.onChange(value => this.result = value));
