@@ -1,6 +1,6 @@
 {
 	"name": "timer",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Allows you to measure time.",
 	"main": "src/main.js",
 	"scripts": {
@@ -8,7 +8,7 @@
 		"build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
 		"version": "node version-bump.mjs && git add manifest.json versions.json",
 		"lint:fix": "npx eslint --fix src",
-    	"lint": "npx eslint src"
+		"lint": "npx eslint src"
 	},
 	"keywords": [],
 	"author": "Marius Wörfel",
