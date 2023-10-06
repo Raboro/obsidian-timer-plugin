@@ -88,14 +88,14 @@ export default class TimerPlugin extends Plugin {
     };
 
     private useOneOfFavoriteTimers = async () => {
-        new ChooseFavoriteTimerModal(this.app, this.settings.favoriteTimers, async (timer: string) => {
-            this.reload(Timer.set(timer));
+        new ChooseFavoriteTimerModal(this.app, this.settings.favoriteTimers, async (result: string) => {
+            this.reload(Timer.set(result));
         }).open();
     };
 
     private removeOneOfFavoriteTimers = async () => {
-        new ChooseFavoriteTimerModal(this.app, this.settings.favoriteTimers, async (timer: string) => {
-            this.settings.favoriteTimers.remove(timer);
+        new ChooseFavoriteTimerModal(this.app, this.settings.favoriteTimers, async (result: string) => {
+            this.settings.favoriteTimers.remove(result);
             this.saveSettings();
         }).open();
     };
