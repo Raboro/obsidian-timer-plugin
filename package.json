@@ -1,6 +1,6 @@
 {
 	"name": "timer",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"description": "Allows you to measure time.",
 	"main": "src/main.js",
 	"scripts": {
