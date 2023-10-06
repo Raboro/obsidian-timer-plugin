@@ -7,7 +7,6 @@ import ChooseFavoriteTimerModal from './modals/chooseFavoriteTimerModal';
 
 export default class TimerPlugin extends Plugin {
     settings: TimerSettings;
-    timer: Timer;
     
     async onload(): Promise<void> {
         await this.loadSettings();
@@ -61,17 +60,16 @@ export default class TimerPlugin extends Plugin {
 
     private setTimerTo = async () => {
         new TimerModal(this.app, 'Set timer to', 'Insert new timer in two ways:', async (result: string) => {
-            this.timer = Timer.set(result);
-            this.reload(false);
+            this.reload(Timer.set(result));
         }).open();
     };    
 
-    private async reload(updatedSettings: boolean): Promise<void> {
+    private async reload(timer?: Timer): Promise<void> {
         const leaves: WorkspaceLeaf[] = this.app.workspace.getLeavesOfType(TIMER_VIEW_TYPE);
         if (leaves.length == 0) return;
         const view = (leaves[0].view as TimerView);
-        if (updatedSettings) await view.updateSettings(this.settings.timerButtonsSettings);
-        else await view.updateTimer(this.timer);
+        if (timer) await view.updateTimer(timer);
+        else await view.updateSettings(this.settings.timerButtonsSettings);
     }
 
     private addFavoriteTimer = async () => {
@@ -91,8 +89,7 @@ export default class TimerPlugin extends Plugin {
 
     private useOneOfFavoriteTimers = async () => {
         new ChooseFavoriteTimerModal(this.app, this.settings.favoriteTimers, async (timer: string) => {
-            this.timer = Timer.set(timer);
-            this.reload(false);
+            this.reload(Timer.set(timer));
         }).open();
     };
 
@@ -109,6 +106,6 @@ export default class TimerPlugin extends Plugin {
 
 	async saveSettings(): Promise<void> {
 		await this.saveData(this.settings);
-        this.reload(true);
+        this.reload();
 	}
 }
