@@ -2,7 +2,7 @@ import { Plugin, WorkspaceLeaf } from 'obsidian';
 import { DEFAULT_SETTINGS, TimerSettings, TimerSettingsTab } from './settings/settings';
 import TimerView, { TIMER_VIEW_TYPE } from './views/view';
 import Timer from './timer/timer';
-import AbstractTimerModal from './modals/abstractTimerModal';
+import TimerModal from './modals/timerModal';
 import ChooseFavoriteTimerModal from './modals/chooseFavoriteTimerModal';
 
 export default class TimerPlugin extends Plugin {
@@ -60,7 +60,7 @@ export default class TimerPlugin extends Plugin {
 	}
 
     private setTimerTo = async () => {
-        new AbstractTimerModal(this.app, 'Set timer to', 'Insert new timer in two ways:', async (result: string) => {
+        new TimerModal(this.app, 'Set timer to', 'Insert new timer in two ways:', async (result: string) => {
             this.timer = Timer.set(result);
             this.reload(false);
         }).open();
@@ -75,7 +75,7 @@ export default class TimerPlugin extends Plugin {
     }
 
     private addFavoriteTimer = async () => {
-        new AbstractTimerModal(
+        new TimerModal(
                 this.app, 
                 'Add favorite timer', 
                 'Add another favorite timer in two ways: ',

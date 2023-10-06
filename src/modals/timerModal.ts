@@ -1,6 +1,6 @@
 import { App, ButtonComponent, Modal, Setting } from 'obsidian';
 
-export default class AbstractTimerModal extends Modal {
+export default class TimerModal extends Modal {
     private result: string;
     private title: string;
     private description: string;
