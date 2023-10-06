@@ -6,7 +6,7 @@ import TimerModal from './modals/timerModal';
 import ChooseFavoriteTimerModal from './modals/chooseFavoriteTimerModal';
 
 export default class TimerPlugin extends Plugin {
-    settings: TimerSettings;
+    private settings: TimerSettings;
     
     async onload(): Promise<void> {
         await this.loadSettings();
