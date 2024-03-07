@@ -4,6 +4,7 @@ import ControlButtonsUi from './controlButtonsUi';
 import { Notice } from 'obsidian';
 import TimerButtonsUi from './timerButtonsUi';
 import Timer from 'src/timer/timer';
+import { notificationUrl } from 'src/notificationSound';
 
 interface ITimerUi {
   timerInput: Timer | null;
@@ -67,6 +68,7 @@ export default function TimerUi({ timerInput, updatedSettings }: ITimerUi) {
     useEffect(() => {
         if (timerExpired) {
             setSwitchControlButtons(true);
+            new Audio(notificationUrl).play();
             new Notice('Timer is finished!!');
         }
     }, [timerExpired]);
