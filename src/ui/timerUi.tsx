@@ -11,7 +11,7 @@ interface ITimerUi {
   updatedSettings: boolean;
 }
 
-export default function TimerUi({ timerInput, updatedSettings }: ITimerUi) {
+export default function TimerUi({ timerInput, updatedSettings }: Readonly<ITimerUi>) {
     
     const getStartState = (): Timer => {
         let timerValue = null;
