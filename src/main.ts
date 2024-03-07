@@ -46,12 +46,19 @@ export default class TimerPlugin extends Plugin {
 
     private async openView(): Promise<void> {
         const leaves: WorkspaceLeaf[] = this.app.workspace.getLeavesOfType(TIMER_VIEW_TYPE);
-        this.app.workspace.revealLeaf(leaves.length != 0 ? leaves[0]: await this.getLeafView());
+        const leafView = await this.getLeafView();
+        if (leaves.length != 0) {
+            this.app.workspace.revealLeaf(leaves[0]);
+        } else if (leafView) {
+            this.app.workspace.revealLeaf(leafView);
+        }
     }
 
-    private async getLeafView(): Promise<WorkspaceLeaf> {
+    private async getLeafView(): Promise<WorkspaceLeaf | null> {
 		const leaf = this.app.workspace.getRightLeaf(false);
-		await leaf.setViewState({type: TIMER_VIEW_TYPE});
+        if (leaf) {
+            await leaf.setViewState({type: TIMER_VIEW_TYPE});
+        }
         return leaf;
 	}
 
