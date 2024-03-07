@@ -70,6 +70,7 @@ export default function TimerUi({ timerInput, updatedSettings }: Readonly<ITimer
             setSwitchControlButtons(true);
             new Audio(notificationUrl).play();
             new Notice('Timer is finished!!');
+            resetTimer();
         }
     }, [timerExpired]);
 
