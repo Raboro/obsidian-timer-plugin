@@ -7,10 +7,12 @@ import ChooseFavoriteTimerModal from './modals/chooseFavoriteTimerModal';
 
 export default class TimerPlugin extends Plugin {
     settings: TimerSettings;
+    statusBarItem: HTMLElement;
     
     async onload(): Promise<void> {
         await this.loadSettings();
-        this.registerView(TIMER_VIEW_TYPE, (leaf) => new TimerView(leaf, this.settings.timerButtonsSettings));
+        this.statusBarItem = this.addStatusBarItem();
+        this.registerView(TIMER_VIEW_TYPE, (leaf) => new TimerView(leaf, this.settings.timerButtonsSettings, this.statusBarItem));
         this.addRibbonIcon('alarm-clock', 'Open timer', async () => await this.openView());
         this.addCommands();
         this.addSettingTab(new TimerSettingsTab(this.app, this));

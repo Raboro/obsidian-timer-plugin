@@ -9,9 +9,10 @@ import { notificationUrl } from 'src/notificationSound';
 interface ITimerUi {
   timerInput: Timer | null;
   updatedSettings: boolean;
+  statusBarItem: HTMLElement;
 }
 
-export default function TimerUi({ timerInput, updatedSettings }: Readonly<ITimerUi>) {
+export default function TimerUi({ timerInput, updatedSettings, statusBarItem }: Readonly<ITimerUi>) {
     
     const getStartState = (): Timer => {
         let timerValue = null;
@@ -35,9 +36,11 @@ export default function TimerUi({ timerInput, updatedSettings }: Readonly<ITimer
         if (timer.isFinished()) return false;
         setSwitchControlButtons(false);
         if (intervalIdRef.current) clearInterval(intervalIdRef.current);
+        statusBarItem.setText(timer.toString());
         intervalIdRef.current = setInterval(() => {
             timer.updateTimer('-1s');
             setTimer(new Timer(timer));
+            statusBarItem.setText(timer.toString());
             if (timer.isFinished() && intervalIdRef.current) {
                 clearInterval(intervalIdRef.current);
                 setTimerExpired(true);

@@ -14,11 +14,13 @@ export default class TimerView extends ItemView {
     private root: Root;
     private timerButtonsSettings: TimerButtonsSettings;
     private timer: Timer;
+    private statusBarItem: HTMLElement;
     icon = 'alarm-clock';
 
-    constructor(leaf: WorkspaceLeaf, timerButtonsSettings: TimerButtonsSettings) {
+    constructor(leaf: WorkspaceLeaf, timerButtonsSettings: TimerButtonsSettings, statusBarItem: HTMLElement) {
         super(leaf);
         this.timerButtonsSettings = timerButtonsSettings;
+        this.statusBarItem = statusBarItem;
     }
 
     async updateTimer(timer: Timer): Promise<void> {
@@ -41,7 +43,7 @@ export default class TimerView extends ItemView {
         this.root.render(
             <React.StrictMode>
                 <TimerButtonsSettingsContext.Provider value={this.timerButtonsSettings}>
-                    <TimerUi timerInput={this.timer} updatedSettings={updatedSettings}/>
+                    <TimerUi timerInput={this.timer} updatedSettings={updatedSettings} statusBarItem={this.statusBarItem}/>
                 </TimerButtonsSettingsContext.Provider>
             </React.StrictMode>
         );
