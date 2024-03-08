@@ -1,7 +1,7 @@
 {
 	"id": "timer",
 	"name": "Timer",
-	"version": "1.0.5",
+	"version": "1.0.6",
 	"minAppVersion": "0.15.0",
 	"description": "Allows you to measure time.",
 	"author": "Marius Wörfel",
