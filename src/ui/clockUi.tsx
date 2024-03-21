@@ -2,13 +2,21 @@ import ClockElementSeparatorUi from './clockElementSeparatorUi';
 import ClockElementUi from './clockElementUi';
 import ClockHeaderTextUi from './clockHeaderTextUi';
 import TimerDTO from 'src/timer/timerDTO';
+import { TimerSettingsContext } from 'src/views/view';
+import { useContext } from 'react';
 
 interface IClockUi {
     timer: TimerDTO;
 }
 
 export default function ClockUi({timer}: IClockUi) {
-    return StandardTimeFormatUi({timer});
+    const timerSettings = useContext(TimerSettingsContext);
+
+    if (timerSettings.useVerboseTimeFormatT) {
+        return VerboseTimeFormatUi({timer});
+    } else {
+        return StandardTimeFormatUi({timer});
+    }
 }
 
 // Standard Time Format (HH:MM:SS)
@@ -26,4 +34,9 @@ export function StandardTimeFormatUi({timer}: IClockUi) {
             <ClockElementUi char={timer.seconds.charAt(1)} />
         </div>
     </div>;
+}
+
+// Verbose Time Format (Hh Mm Ss)
+export function VerboseTimeFormatUi({timer}: IClockUi) {
+    return <div><h1 className="verboseTimeFormatC">{timer.hours}h {timer.minutes}m {timer.seconds}s</h1></div>
 }
