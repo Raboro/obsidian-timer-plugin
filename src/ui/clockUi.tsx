@@ -63,7 +63,7 @@ export function VerboseTimeFormatUi({timer}: IClockUi) {
 
     return (
         <div>
-            <h1>{timeString}</h1>
+            <h1 className="verboseTimeFormat">{timeString}</h1>
         </div>
     );
 }
