@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { TimerButtonsSettingsContext } from 'src/views/view';
+import { TimerButtonsSettingsContext, StackTimerButtonsContext } from 'src/views/view';
 
 interface ITimerButtonsUi {
     updateTimer: (update: string) => void;
@@ -8,7 +8,7 @@ interface ITimerButtonsUi {
 export default function TimerButtonsUi({ updateTimer }: ITimerButtonsUi) {
     const { first, second, third, fourth } = useContext(TimerButtonsSettingsContext);
     const settings = [first, second, third, fourth];
-    const stackTimerButtons = false; 
+    const stackTimerButtons = useContext(StackTimerButtonsContext);
 
     if (stackTimerButtons) {
         return (
