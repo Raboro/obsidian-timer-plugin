@@ -11,12 +11,14 @@ export interface TimerSettings {
     timerButtonsSettings: TimerButtonsSettings;
     favoriteTimers: string[];
     stackTimerButtons: boolean;
+    useTextBasedTimerDisplay: boolean;
 }
 
 export const DEFAULT_SETTINGS: TimerSettings = {
     timerButtonsSettings: new TimerButtonsSettings('1s', '1m', '10m', '1h'),
     favoriteTimers: [],
-    stackTimerButtons: false
+    stackTimerButtons: false,
+    useTextBasedTimerDisplay: false,
 };
 
 export class TimerSettingsTab extends PluginSettingTab {
@@ -32,6 +34,7 @@ export class TimerSettingsTab extends PluginSettingTab {
         this.containerEl.empty();
         this.timerButtonsSettings();
         this.stackButtonSettings();
+        this.textBasedTimerDisplaySettings();
     }
 
     private timerButtonsSettings(): void {
@@ -87,6 +90,19 @@ export class TimerSettingsTab extends PluginSettingTab {
                 .setValue(this.plugin.settings.stackTimerButtons)
                 .onChange(async value => {
                     this.plugin.settings.stackTimerButtons = value;
+                    await this.plugin.saveSettings();
+                })
+            );
+    }
+
+    private textBasedTimerDisplaySettings(): void {
+        new Setting(this.containerEl)
+            .setName('Use text based timer display')
+            .setDesc('If enabled, the timer display will be in the format of "1h 2m 3s" instead of "01:02:03".')
+            .addToggle(toggle => toggle
+                .setValue(this.plugin.settings.useTextBasedTimerDisplay)
+                .onChange(async value => {
+                    this.plugin.settings.useTextBasedTimerDisplay = value;
                     await this.plugin.saveSettings();
                 })
             );
