@@ -1,29 +1,26 @@
 import { ItemView, WorkspaceLeaf } from 'obsidian';
 import * as React from 'react';
 import { Root, createRoot } from 'react-dom/client';
-import { DEFAULT_SETTINGS, TimerSettings, TimerButtonsSettings } from 'src/settings/settings';
+import { DEFAULT_SETTINGS, TimerSettings } from 'src/settings/settings';
 import Timer from 'src/timer/timer';
 import TimerUi from 'src/ui/timerUi';
 
 export const TIMER_VIEW_TYPE = 'Timer';
 
-export const TimerButtonsSettingsContext= React.createContext(DEFAULT_SETTINGS.timerButtonsSettings);
-export const StackTimerButtonsContext = React.createContext(DEFAULT_SETTINGS.stackTimerButtons);
+export const TimerSettingsContext = React.createContext(DEFAULT_SETTINGS);
 
 export default class TimerView extends ItemView {
     private container: HTMLDivElement;
     private root: Root;
-    private timerButtonsSettings: TimerButtonsSettings;
-    private stackTimerButtons: boolean;
+    private timerSettings: TimerSettings;
     private timer: Timer;
     private statusBarItem: HTMLElement;
     icon = 'alarm-clock';
 
     constructor(leaf: WorkspaceLeaf, timerSettings: TimerSettings, statusBarItem: HTMLElement) {
         super(leaf);
-        this.timerButtonsSettings = timerSettings.timerButtonsSettings;
+        this.timerSettings = timerSettings
         this.statusBarItem = statusBarItem;
-        this.stackTimerButtons = timerSettings.stackTimerButtons;
     }
 
     async updateTimer(timer: Timer): Promise<void> {
@@ -38,19 +35,19 @@ export default class TimerView extends ItemView {
     }
 
     async updateSettings(timerSettings: TimerSettings): Promise<void> {
-        this.timerButtonsSettings = timerSettings.timerButtonsSettings;
-        this.stackTimerButtons = timerSettings.stackTimerButtons;
+        this.timerSettings = timerSettings
         await this.reload(true);
     }
 
     private renderRoot(updatedSettings: boolean): void {
         this.root.render(
             <React.StrictMode>
-                <TimerButtonsSettingsContext.Provider value={this.timerButtonsSettings}>
-                    <StackTimerButtonsContext.Provider value={this.stackTimerButtons}>
-                        <TimerUi timerInput={this.timer} updatedSettings={updatedSettings} statusBarItem={this.statusBarItem} />
-                    </StackTimerButtonsContext.Provider>
-                </TimerButtonsSettingsContext.Provider>
+                <TimerSettingsContext.Provider value={this.timerSettings}>
+                    <TimerUi
+                        timerInput={this.timer}
+                        updatedSettings={updatedSettings}
+                        statusBarItem={this.statusBarItem} />
+                </TimerSettingsContext.Provider>
             </React.StrictMode>
         );
     }
