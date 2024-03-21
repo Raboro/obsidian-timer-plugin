@@ -8,6 +8,11 @@ interface IClockUi {
 }
 
 export default function ClockUi({timer}: IClockUi) {
+    return StandardTimeFormatUi({timer});
+}
+
+// Standard Time Format (HH:MM:SS)
+export function StandardTimeFormatUi({timer}: IClockUi) {
     return <div className="clockContainer">
         <ClockHeaderTextUi />
         <div className="clockElementContainer">
