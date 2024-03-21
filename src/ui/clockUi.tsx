@@ -36,7 +36,34 @@ export function StandardTimeFormatUi({timer}: IClockUi) {
     </div>;
 }
 
-// Verbose Time Format (Hh Mm Ss)
 export function VerboseTimeFormatUi({timer}: IClockUi) {
-    return <div><h1 className="verboseTimeFormatC">{timer.hours}h {timer.minutes}m {timer.seconds}s</h1></div>
+    const hours = parseInt(timer.hours);
+    const minutes = parseInt(timer.minutes);
+    const seconds = parseInt(timer.seconds);
+
+    let timeString = '';
+
+    const hoursString = (hours > 0) 
+        ? hours.toString() + 'h ' 
+        : '';
+
+    const minutesString = (hours > 0) 
+        ? timer.minutes + 'm ' 
+        : (minutes > 0) 
+            ? minutes.toString() + 'm ' 
+            : '';
+
+    const secondsString = ((hours > 0 || minutes > 0) 
+        ? timer.seconds 
+        : seconds.toString()) + 's';
+
+    timeString += hoursString;
+    timeString += minutesString
+    timeString += secondsString;
+
+    return (
+        <div>
+            <h1>{timeString}</h1>
+        </div>
+    );
 }
