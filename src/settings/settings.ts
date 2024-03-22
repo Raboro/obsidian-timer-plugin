@@ -1,4 +1,4 @@
-import { App, Notice, PluginSettingTab, Setting, ToggleComponent } from 'obsidian';
+import { App, Notice, PluginSettingTab, Setting } from 'obsidian';
 import TimerPlugin from 'src/main';
 
 export class TimerButtonsSettings {
