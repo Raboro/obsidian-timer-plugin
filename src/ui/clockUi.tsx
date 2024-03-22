@@ -42,8 +42,6 @@ function VerboseTimeFormatUi({timer}: Readonly<IClockUi>, timerSettings: TimerSe
     const minutes = parseInt(timer.minutes);
     const seconds = parseInt(timer.seconds);
 
-    let timeString = '';
-
     const hoursString = (hours > 0) 
         ? hours.toString() + 'h ' 
         : '';
@@ -60,17 +58,11 @@ function VerboseTimeFormatUi({timer}: Readonly<IClockUi>, timerSettings: TimerSe
             ? seconds.toString() + 's'
             : '';
 
-    timeString += hoursString;
-    timeString += minutesString;
-    timeString += secondsString;
+    const timeString = `${hoursString}${minutesString}${secondsString}`;
 
-    if (timeString === '') {
-        timeString = '0s';
-    }
-    
     return (
         <div>
-            <h1 className="verboseTimeFormat">{timeString}</h1>
+            <h1 className="verboseTimeFormat">{timeString === '' ? '0s' : timeString}</h1>
         </div>
     );
 }
