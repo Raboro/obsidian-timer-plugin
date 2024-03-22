@@ -12,7 +12,7 @@ export default class TimerPlugin extends Plugin {
     async onload(): Promise<void> {
         await this.loadSettings();
         this.statusBarItem = this.addStatusBarItem();
-        this.registerView(TIMER_VIEW_TYPE, (leaf) => new TimerView(leaf, this.settings.timerButtonsSettings, this.statusBarItem));
+        this.registerView(TIMER_VIEW_TYPE, (leaf) => new TimerView(leaf, this.settings, this.statusBarItem));
         this.addRibbonIcon('alarm-clock', 'Open timer', async () => await this.openView());
         this.addCommands();
         this.addSettingTab(new TimerSettingsTab(this.app, this));
@@ -75,7 +75,7 @@ export default class TimerPlugin extends Plugin {
         if (leaves.length == 0) return;
         const view = (leaves[0].view as TimerView);
         if (timer) await view.updateTimer(timer);
-        else await view.updateSettings(this.settings.timerButtonsSettings);
+        else await view.updateSettings(this.settings);
     }
 
     private addFavoriteTimer = async () => {

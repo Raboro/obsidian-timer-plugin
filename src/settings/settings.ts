@@ -1,4 +1,4 @@
-import { App, Notice, PluginSettingTab, Setting } from 'obsidian';
+import { App, Notice, PluginSettingTab, Setting, ToggleComponent } from 'obsidian';
 import TimerPlugin from 'src/main';
 
 export class TimerButtonsSettings {
@@ -10,11 +10,13 @@ export class TimerButtonsSettings {
 export interface TimerSettings {
     timerButtonsSettings: TimerButtonsSettings;
     favoriteTimers: string[];
+    stackTimerButtons: boolean;
 }
 
 export const DEFAULT_SETTINGS: TimerSettings = {
     timerButtonsSettings: new TimerButtonsSettings('1s', '1m', '10m', '1h'),
-    favoriteTimers: []
+    favoriteTimers: [],
+    stackTimerButtons: false
 };
 
 export class TimerSettingsTab extends PluginSettingTab {
@@ -29,6 +31,7 @@ export class TimerSettingsTab extends PluginSettingTab {
     display(): void {
         this.containerEl.empty();
         this.timerButtonsSettings();
+        this.stackButtonSettings();
     }
 
     private timerButtonsSettings(): void {
@@ -74,5 +77,18 @@ export class TimerSettingsTab extends PluginSettingTab {
         const properties = ['first', 'second', 'third', 'fourth'];
         this.plugin.settings.timerButtonsSettings[properties[index]] = value;
         await this.plugin.saveSettings();
+    }
+
+    private stackButtonSettings(): void {
+        new Setting(this.containerEl)
+            .setName('Stack timer buttons')
+            .setDesc('If enabled, the timer increment buttons will be stacked on top of the timer decrement buttons. If disabled, the timer increment buttons will be placed to the right of the timer decrement buttons.')
+            .addToggle(toggle => toggle
+                .setValue(this.plugin.settings.stackTimerButtons)
+                .onChange(async value => {
+                    this.plugin.settings.stackTimerButtons = value;
+                    await this.plugin.saveSettings();
+                })
+            );
     }
 }
