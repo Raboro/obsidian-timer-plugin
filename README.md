@@ -27,4 +27,8 @@ Also you can add a couple of favorite timers, which you often use. You can remov
 ## Settings
 You can set the numbers of the timer buttons in the settings. Also you can insert only seconds/minutes or hours for one button. The number you insert gets an increasing and decreasing button.
 
+You can also stack the timer buttons over each other.
+
+Also it's possible to use another time format displayed in the ui. Default is shown in the screenshot on the top. But you can also enable verbose format and directly see the numbers: ``12m 00s``. If you wanna get rid of the ``00s`` you can enable the last setting 'Remove not set values in verbose time format' to get ``12m``
+
 ![Settings Demo image](assets/SettingsDemo.png)
