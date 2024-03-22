@@ -11,14 +11,14 @@ export interface TimerSettings {
     timerButtonsSettings: TimerButtonsSettings;
     favoriteTimers: string[];
     stackTimerButtons: boolean;
-    useVerboseTimeFormatT: boolean;
+    useVerboseTimeFormat: boolean;
 }
 
 export const DEFAULT_SETTINGS: TimerSettings = {
     timerButtonsSettings: new TimerButtonsSettings('1s', '1m', '10m', '1h'),
     favoriteTimers: [],
     stackTimerButtons: false,
-    useVerboseTimeFormatT: false,
+    useVerboseTimeFormat: false,
 };
 
 export class TimerSettingsTab extends PluginSettingTab {
@@ -100,9 +100,9 @@ export class TimerSettingsTab extends PluginSettingTab {
             .setName('Use verbose time format')
             .setDesc('If enabled, the timer display will be in the format of "1h 2m 3s" instead of "01:02:03".')
             .addToggle(toggle => toggle
-                .setValue(this.plugin.settings.useVerboseTimeFormatT)
+                .setValue(this.plugin.settings.useVerboseTimeFormat)
                 .onChange(async value => {
-                    this.plugin.settings.useVerboseTimeFormatT = value;
+                    this.plugin.settings.useVerboseTimeFormat = value;
                     await this.plugin.saveSettings();
                 })
             );

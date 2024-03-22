@@ -12,7 +12,7 @@ interface IClockUi {
 export default function ClockUi({timer}: Readonly<IClockUi>) {
     const timerSettings = useContext(TimerSettingsContext);
 
-    if (timerSettings.useVerboseTimeFormatT) {
+    if (timerSettings.useVerboseTimeFormat) {
         return VerboseTimeFormatUi({timer});
     } else {
         return StandardTimeFormatUi({timer});
