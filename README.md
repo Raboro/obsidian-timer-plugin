@@ -7,6 +7,13 @@ With this plugin you can measure time, set timers and get a notice if the timer 
 ## Using
 Set your timer via commands or with the timer buttons under the clock. The maximum is ``99:59:59``. Also if the clock is at ``00:00:00`` the timer is not starting. You can edit the numbers which in-/decreases the clock in the settings. If the timer is finished you get a notice. You can ``start/stop/cancel/resume and reset`` the timer. By default you can start and reset the timer, but if the timer is going you can cancel/stop/resume it.
 
+You also see the current timer in the status bar in the left corner.
+Also there is another time format called ``Verbose`` (screenshots with stacked timer buttons): 
+
+With not set values | Without not set values (00)|
+--- | --- |
+![Verbose time format](assets/VerboseUI.png) | ![Verbose time format without not set values](assets/VerboseUIWithoutNotSetValues.png) |
+
 ## Commands 
 You can open the timer by clicking on the ribbon icon or using the command ``Timer: Open timer``. You can also directly set the timer via the command ``Timer: Set timer to``. You can use one of those two notation as input: 
 ```
