@@ -9,7 +9,7 @@ interface IClockUi {
     timer: TimerDTO;
 }
 
-export default function ClockUi({timer}: IClockUi) {
+export default function ClockUi({timer}: Readonly<IClockUi>) {
     const timerSettings = useContext(TimerSettingsContext);
 
     if (timerSettings.useVerboseTimeFormatT) {
@@ -20,7 +20,7 @@ export default function ClockUi({timer}: IClockUi) {
 }
 
 // Standard Time Format (HH:MM:SS)
-export function StandardTimeFormatUi({timer}: IClockUi) {
+export function StandardTimeFormatUi({timer}: Readonly<IClockUi>) {
     return <div className="clockContainer">
         <ClockHeaderTextUi />
         <div className="clockElementContainer">

@@ -19,7 +19,7 @@ export default class TimerView extends ItemView {
 
     constructor(leaf: WorkspaceLeaf, timerSettings: TimerSettings, statusBarItem: HTMLElement) {
         super(leaf);
-        this.timerSettings = timerSettings
+        this.timerSettings = timerSettings;
         this.statusBarItem = statusBarItem;
     }
 
@@ -35,7 +35,7 @@ export default class TimerView extends ItemView {
     }
 
     async updateSettings(timerSettings: TimerSettings): Promise<void> {
-        this.timerSettings = timerSettings
+        this.timerSettings = timerSettings;
         await this.reload(true);
     }
 

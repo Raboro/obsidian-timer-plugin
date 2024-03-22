@@ -8,7 +8,7 @@ interface IControlButtonsUi {
 }
 
 export default function ControlButtonsUi({ resetTimer, startTimer, stopTimer, 
-                                            switchControlButtons }: IControlButtonsUi) {
+                                            switchControlButtons }: Readonly<IControlButtonsUi>) {
     const [startDisplay, setStartDisplay] = useState(true);
     const [resetDisplay, setResetDisplay] = useState(true);
     const [cancelDisplay, setCancelDisplay] = useState(false);
