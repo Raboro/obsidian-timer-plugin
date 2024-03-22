@@ -14,13 +14,12 @@ export default function ClockUi({timer}: Readonly<IClockUi>) {
 
     if (timerSettings.useVerboseTimeFormat) {
         return VerboseTimeFormatUi({timer});
-    } else {
-        return StandardTimeFormatUi({timer});
     }
+    return StandardTimeFormatUi({timer});
 }
 
 // Standard Time Format (HH:MM:SS)
-export function StandardTimeFormatUi({timer}: Readonly<IClockUi>) {
+function StandardTimeFormatUi({timer}: Readonly<IClockUi>) {
     return <div className="clockContainer">
         <ClockHeaderTextUi />
         <div className="clockElementContainer">
@@ -36,7 +35,8 @@ export function StandardTimeFormatUi({timer}: Readonly<IClockUi>) {
     </div>;
 }
 
-export function VerboseTimeFormatUi({timer}: Readonly<IClockUi>) {
+// Verbose Time Format e.g 17h 12m 03s
+function VerboseTimeFormatUi({timer}: Readonly<IClockUi>) {
     const hours = parseInt(timer.hours);
     const minutes = parseInt(timer.minutes);
     const seconds = parseInt(timer.seconds);
