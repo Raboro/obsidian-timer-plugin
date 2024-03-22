@@ -58,7 +58,7 @@ export function VerboseTimeFormatUi({timer}: IClockUi) {
         : seconds.toString()) + 's';
 
     timeString += hoursString;
-    timeString += minutesString
+    timeString += minutesString;
     timeString += secondsString;
 
     return (
