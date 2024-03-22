@@ -5,7 +5,7 @@ interface ITimerButtonsUi {
     updateTimer: (update: string) => void;
 }
 
-export default function TimerButtonsUi({ updateTimer }: ITimerButtonsUi) {
+export default function TimerButtonsUi({ updateTimer }: Readonly<ITimerButtonsUi>) {
     const timerSettings = useContext(TimerSettingsContext);
     const { first, second, third, fourth } = timerSettings.timerButtonsSettings;
     const settings = [first, second, third, fourth];

@@ -7,7 +7,7 @@ interface IClockUi {
     timer: TimerDTO;
 }
 
-export default function ClockUi({timer}: IClockUi) {
+export default function ClockUi({timer}: Readonly<IClockUi>) {
     return <div className="clockContainer">
         <ClockHeaderTextUi />
         <div className="clockElementContainer">
