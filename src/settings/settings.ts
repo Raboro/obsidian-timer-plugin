@@ -12,6 +12,7 @@ export interface TimerSettings {
     favoriteTimers: string[];
     stackTimerButtons: boolean;
     useVerboseTimeFormat: boolean;
+    verboseTimeFormatRemoveNotSetValues: boolean;
 }
 
 export const DEFAULT_SETTINGS: TimerSettings = {
@@ -19,6 +20,7 @@ export const DEFAULT_SETTINGS: TimerSettings = {
     favoriteTimers: [],
     stackTimerButtons: false,
     useVerboseTimeFormat: false,
+    verboseTimeFormatRemoveNotSetValues: false,
 };
 
 export class TimerSettingsTab extends PluginSettingTab {
@@ -35,6 +37,7 @@ export class TimerSettingsTab extends PluginSettingTab {
         this.timerButtonsSettings();
         this.stackButtonSettings();
         this.useVerboseTimeFormatSettings();
+        this.verboseTimeFormatRemoveNotSetValues();
     }
 
     private timerButtonsSettings(): void {
@@ -103,6 +106,19 @@ export class TimerSettingsTab extends PluginSettingTab {
                 .setValue(this.plugin.settings.useVerboseTimeFormat)
                 .onChange(async value => {
                     this.plugin.settings.useVerboseTimeFormat = value;
+                    await this.plugin.saveSettings();
+                })
+            );
+    }
+
+    private verboseTimeFormatRemoveNotSetValues(): void {
+        new Setting(this.containerEl)
+            .setName("Remove not set values in verbose time format")
+            .setDesc('If enabled and verbose enabled, 00 values are not shown. If disabled and for example +1m is clicked, also \'00s\' is shown')
+            .addToggle(toggle => toggle
+                .setValue(this.plugin.settings.verboseTimeFormatRemoveNotSetValues)
+                .onChange(async value => {
+                    this.plugin.settings.verboseTimeFormatRemoveNotSetValues = value;
                     await this.plugin.saveSettings();
                 })
             );
