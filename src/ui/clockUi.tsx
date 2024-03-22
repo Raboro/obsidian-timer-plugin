@@ -36,7 +36,7 @@ export function StandardTimeFormatUi({timer}: Readonly<IClockUi>) {
     </div>;
 }
 
-export function VerboseTimeFormatUi({timer}: IClockUi) {
+export function VerboseTimeFormatUi({timer}: Readonly<IClockUi>) {
     const hours = parseInt(timer.hours);
     const minutes = parseInt(timer.minutes);
     const seconds = parseInt(timer.seconds);
