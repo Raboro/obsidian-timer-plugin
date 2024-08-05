@@ -9,10 +9,11 @@ import { notificationUrl } from 'src/notificationSound';
 interface ITimerUi {
   timerInput: Timer | null;
   updatedSettings: boolean;
+  useOsNotification: boolean;
   statusBarItem: HTMLElement;
 }
 
-export default function TimerUi({ timerInput, updatedSettings, statusBarItem }: Readonly<ITimerUi>) {
+export default function TimerUi({ timerInput, updatedSettings, statusBarItem, useOsNotification }: Readonly<ITimerUi>) {
     
     const getStartState = (): Timer => {
         let timerValue = null;
@@ -72,7 +73,12 @@ export default function TimerUi({ timerInput, updatedSettings, statusBarItem }: 
         if (timerExpired) {
             setSwitchControlButtons(true);
             new Audio(notificationUrl).play();
-            new Notice('Timer is finished!!');
+            if (useOsNotification) {
+                const notificationSettings: NotificationOptions = { 'body': 'Timer is finished!!', 'requireInteraction': true, 'tag': 'obsidian-timer' };
+                new Notification('Timer', notificationSettings);
+            } else {
+                new Notice('Timer is finished!!');
+            }
             resetTimer();
         }
     }, [timerExpired]);

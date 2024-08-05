@@ -46,7 +46,8 @@ export default class TimerView extends ItemView {
                     <TimerUi
                         timerInput={this.timer}
                         updatedSettings={updatedSettings}
-                        statusBarItem={this.statusBarItem} />
+                        statusBarItem={this.statusBarItem}
+                        useOsNotification={this.timerSettings.useOSNotification} />
                 </TimerSettingsContext.Provider>
             </React.StrictMode>
         );
