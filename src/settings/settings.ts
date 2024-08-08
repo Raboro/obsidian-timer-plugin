@@ -130,7 +130,7 @@ export class TimerSettingsTab extends PluginSettingTab {
     private useOSNotificationSettings(): void {
         new Setting(this.containerEl)
             .setName('Use OS notification')
-            .setDesc('If enabled, the timer notification will be an OS level notification which remains active until dismissed.')
+            .setDesc('If enabled, the timer notification will be an OS-level notification rather than an Obisidian notice, and will remain active until dismissed.')
             .addToggle(toggle => toggle
                 .setValue(this.plugin.settings.useOSNotification)
                 .onChange(async value => {
