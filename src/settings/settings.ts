@@ -13,6 +13,7 @@ export interface TimerSettings {
     stackTimerButtons: boolean;
     useVerboseTimeFormat: boolean;
     verboseTimeFormatRemoveNotSetValues: boolean;
+    useOSNotification: boolean;
 }
 
 export const DEFAULT_SETTINGS: TimerSettings = {
@@ -21,6 +22,7 @@ export const DEFAULT_SETTINGS: TimerSettings = {
     stackTimerButtons: false,
     useVerboseTimeFormat: false,
     verboseTimeFormatRemoveNotSetValues: false,
+    useOSNotification: false,
 };
 
 export class TimerSettingsTab extends PluginSettingTab {
@@ -38,6 +40,7 @@ export class TimerSettingsTab extends PluginSettingTab {
         this.stackButtonSettings();
         this.useVerboseTimeFormatSettings();
         this.verboseTimeFormatRemoveNotSetValues();
+        this.useOSNotificationSettings();
     }
 
     private timerButtonsSettings(): void {
@@ -120,6 +123,36 @@ export class TimerSettingsTab extends PluginSettingTab {
                 .onChange(async value => {
                     this.plugin.settings.verboseTimeFormatRemoveNotSetValues = value;
                     await this.plugin.saveSettings();
+                })
+            );
+    }
+
+    private useOSNotificationSettings(): void {
+        new Setting(this.containerEl)
+            .setName('Use OS notification')
+            .setDesc('If enabled, the timer notification will be an OS-level notification rather than an Obisidian notice, and will remain active until dismissed.')
+            .addToggle(toggle => toggle
+                .setValue(this.plugin.settings.useOSNotification)
+                .onChange(async value => {
+                    this.plugin.settings.useOSNotification = value;
+                    this.plugin.saveSettings();
+                    if (value) {
+                        if (!('Notification' in window)) {
+                            new Notice('This browser does not support desktop notifications.');
+                            this.plugin.settings.useOSNotification = false;
+                            this.plugin.saveSettings();
+                            return;
+                        }
+                        if (Notification.permission !== 'granted') {
+                            Notification.requestPermission().then(permission => {
+                                if (permission !== 'granted') {
+                                    new Notice('You need to grant permission to receive notifications.');
+                                    this.plugin.settings.useOSNotification = false;
+                                    this.plugin.saveSettings();
+                                    return;
+                                }
+                        });}
+                    }
                 })
             );
     }
