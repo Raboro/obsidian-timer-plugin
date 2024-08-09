@@ -66,6 +66,7 @@ export default function TimerUi({
     }
   };
 
+  // biome-ignore lint: startTimer as dependency to fix issue leads to another issue
   useEffect(() => {
     if (!timerInput) startTimer();
     return () => {
@@ -73,6 +74,7 @@ export default function TimerUi({
     };
   }, [timerInput]);
 
+  // biome-ignore lint: startTimer as dependency to fix issue leads to another issue
   useEffect(() => {
     if (timerExpired) {
       setSwitchControlButtons(true);

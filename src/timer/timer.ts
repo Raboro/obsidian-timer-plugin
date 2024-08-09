@@ -41,6 +41,7 @@ export default class Timer {
   private static setContainsChar(result: string): Timer {
     const matches = result.match(/(\d+[smh]?)/g);
     const timer = new Timer();
+    // biome-ignore lint: performance issue to use for..of not relevant
     matches
       ?.filter((match) => Timer.validUpdate(match))
       .forEach((match) => timer.updateTimer(match));
