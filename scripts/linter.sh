@@ -2,16 +2,16 @@
 
 echo -e "\ntry to fix all issues if present"
 
-bun run lint:fix
+bun run biome:write
 
-git commit -am "fixed eslint issues"
+git commit -am "fixed biome issues"
 
 echo -e "\ncheck all issues fixed"
 
-bun run lint
-lint_exit_code=$?
+bun run biome:ci
+biome_exit_code=$?
 
-if [ $lint_exit_code -ne 0 ]; then
-    echo "Linting errors still exist. Exiting."
+if [ $biome_exit_code -ne 0 ]; then
+    echo "Biome errors still exist. Exiting."
     exit 1
 fi
