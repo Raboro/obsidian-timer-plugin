@@ -27,8 +27,12 @@ export default class TimerModal extends Modal {
   addSettings(contentEl: HTMLElement): void {
     new Setting(contentEl)
       .setName(this.createFragment(contentEl))
-      .addText((text) => text.onChange((value) => (this.result = value)));
+      .addText((text) => text.onChange((value) => this.updateResult(value)));
     new Setting(contentEl).addButton((button) => this.setButton(button));
+  }
+
+  private updateResult(value: string): void {
+    this.result = value;
   }
 
   private createFragment(contentEl: HTMLElement): DocumentFragment {

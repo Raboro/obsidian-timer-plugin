@@ -22,6 +22,7 @@ export default function TimerButtonsUi({
         <div>
           {settings.reverse().map((v) => (
             <button
+              type="button"
               key={`+${v}`}
               onClick={() => updateTimer(`+${v}`)}
               style={{ margin: '5px', width: '50px' }}
@@ -33,6 +34,7 @@ export default function TimerButtonsUi({
         <div>
           {settings.map((v) => (
             <button
+              type="button"
               key={`-${v}`}
               onClick={() => updateTimer(`-${v}`)}
               style={{ margin: '5px', width: '50px' }}
@@ -47,12 +49,20 @@ export default function TimerButtonsUi({
   return (
     <div className="timerButtonsContainer">
       {settings.reverse().map((v) => (
-        <button key={`-${v}`} onClick={() => updateTimer(`-${v}`)}>
+        <button
+          type="button"
+          key={`-${v}`}
+          onClick={() => updateTimer(`-${v}`)}
+        >
           -{v}
         </button>
       ))}
       {settings.reverse().map((v) => (
-        <button key={`+${v}`} onClick={() => updateTimer(`+${v}`)}>
+        <button
+          type="button"
+          key={`+${v}`}
+          onClick={() => updateTimer(`+${v}`)}
+        >
           +{v}
         </button>
       ))}

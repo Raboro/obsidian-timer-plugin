@@ -61,10 +61,26 @@ export default function ControlButtonsUi({
 
   return (
     <div className="controlButtonsContainer">
-      {startDisplay && <button onClick={start}>Start</button>}
-      {resetDisplay && <button onClick={resetTimer}>Reset</button>}
-      {cancelDisplay && <button onClick={cancel}>Cancel</button>}
-      {pauseDisplay && <button onClick={pause}>{pauseName}</button>}
+      {startDisplay && (
+        <button type="button" onClick={start}>
+          Start
+        </button>
+      )}
+      {resetDisplay && (
+        <button type="button" onClick={resetTimer}>
+          Reset
+        </button>
+      )}
+      {cancelDisplay && (
+        <button type="button" onClick={cancel}>
+          Cancel
+        </button>
+      )}
+      {pauseDisplay && (
+        <button type="button" onClick={pause}>
+          {pauseName}
+        </button>
+      )}
     </div>
   );
 }
