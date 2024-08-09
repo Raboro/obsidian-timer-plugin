@@ -29,9 +29,9 @@ export default class Timer {
 
   static set(result: string): Timer {
     if (result === undefined) return new Timer();
-    return this.containsChar(result)
-      ? this.setContainsChar(result)
-      : this.setWithoutChar(result);
+    return Timer.containsChar(result)
+      ? Timer.setContainsChar(result)
+      : Timer.setWithoutChar(result);
   }
 
   private static containsChar(result: string): boolean {
@@ -42,7 +42,7 @@ export default class Timer {
     const matches = result.match(/(\d+[smh]?)/g);
     const timer = new Timer();
     matches
-      ?.filter((match) => this.validUpdate(match))
+      ?.filter((match) => Timer.validUpdate(match))
       .forEach((match) => timer.updateTimer(match));
     return timer;
   }
@@ -57,15 +57,15 @@ export default class Timer {
     while (splitted.length < 3) {
       splitted.unshift('00');
     }
-    return this.validSplitted(splitted)
+    return Timer.validSplitted(splitted)
       ? new Timer(undefined, splitted)
       : new Timer();
   }
 
   private static validSplitted(splitted: string[]): boolean {
     const oneNoNumber =
-      splitted.filter((split) => !this.containsInvalidChar(split)).length < 3;
-    return oneNoNumber ? false : this.allNotTooBig(splitted);
+      splitted.filter((split) => !Timer.containsInvalidChar(split)).length < 3;
+    return oneNoNumber ? false : Timer.allNotTooBig(splitted);
   }
 
   private static containsInvalidChar(split: string): boolean {
@@ -105,9 +105,9 @@ export default class Timer {
 
   private static allNotTooBig(splitted: string[]): boolean {
     return (
-      Number.parseInt(splitted[0]) <= this.HOUR_MAX &&
-      Number.parseInt(splitted[1]) <= this.MINUTES_MAX &&
-      Number.parseInt(splitted[2]) <= this.SECONDS_MAX
+      Number.parseInt(splitted[0]) <= Timer.HOUR_MAX &&
+      Number.parseInt(splitted[1]) <= Timer.MINUTES_MAX &&
+      Number.parseInt(splitted[2]) <= Timer.SECONDS_MAX
     );
   }
 
@@ -192,8 +192,7 @@ export default class Timer {
   ): string {
     const mod = Number.parseInt(mergedValue) % max;
     const merged = this.merge('00', (mod - (negative ? 0 : 1)).toString());
-    if (negative) return (max + 1 + Number.parseInt(merged)).toString();
-    else return merged;
+    return negative ? (max + 1 + Number.parseInt(merged)).toString() : merged;
   }
 
   private updateMinutes(updatedValue: string): boolean {
@@ -201,20 +200,19 @@ export default class Timer {
     if (this.validNewValue(mergedValue, Timer.MINUTES_MAX)) {
       this.minutes = mergedValue;
       return true;
-    } else {
-      const negative = Number.parseInt(mergedValue) <= 0;
-      if (
-        this.updateHour(
-          this.getUpdateForNext(negative, mergedValue, Timer.MINUTES_MAX),
-        )
-      ) {
-        this.minutes = this.getUpdateForCurrent(
-          negative,
-          mergedValue,
-          Timer.MINUTES_MAX,
-        );
-        return true;
-      }
+    }
+    const negative = Number.parseInt(mergedValue) <= 0;
+    if (
+      this.updateHour(
+        this.getUpdateForNext(negative, mergedValue, Timer.MINUTES_MAX),
+      )
+    ) {
+      this.minutes = this.getUpdateForCurrent(
+        negative,
+        mergedValue,
+        Timer.MINUTES_MAX,
+      );
+      return true;
     }
     return false;
   }
@@ -229,7 +227,9 @@ export default class Timer {
   }
 
   isFinished(): boolean {
-    return this.hours == '00' && this.minutes == '00' && this.seconds == '00';
+    return (
+      this.hours === '00' && this.minutes === '00' && this.seconds === '00'
+    );
   }
 
   access(): TimerDTO {

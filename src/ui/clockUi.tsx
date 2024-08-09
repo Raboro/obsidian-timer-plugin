@@ -47,21 +47,21 @@ function VerboseTimeFormatUi(
   const minutes = Number.parseInt(timer.minutes);
   const seconds = Number.parseInt(timer.seconds);
 
-  const hoursString = hours > 0 ? hours.toString() + 'h ' : '';
+  const hoursString = hours > 0 ? `${hours.toString()}h ` : '';
 
   const minutesString =
     !timerSettings.verboseTimeFormatRemoveNotSetValues && hours > 0
-      ? timer.minutes + 'm '
+      ? `${timer.minutes}m `
       : minutes > 0
-        ? minutes.toString() + 'm '
+        ? `${minutes.toString()}m `
         : '';
 
   const secondsString =
     !timerSettings.verboseTimeFormatRemoveNotSetValues &&
     (hours > 0 || minutes > 0)
-      ? timer.seconds + 's'
+      ? `${timer.seconds}s`
       : seconds > 0
-        ? seconds.toString() + 's'
+        ? `${seconds.toString()}s`
         : '';
 
   const timeString = `${hoursString}${minutesString}${secondsString}`;

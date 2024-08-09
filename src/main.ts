@@ -61,7 +61,7 @@ export default class TimerPlugin extends Plugin {
     const leaves: WorkspaceLeaf[] =
       this.app.workspace.getLeavesOfType(TIMER_VIEW_TYPE);
     const leafView = await this.getLeafView();
-    if (leaves.length != 0) {
+    if (leaves.length !== 0) {
       this.app.workspace.revealLeaf(leaves[0]);
     } else if (leafView) {
       this.app.workspace.revealLeaf(leafView);
@@ -90,7 +90,7 @@ export default class TimerPlugin extends Plugin {
   private async reload(timer?: Timer): Promise<void> {
     const leaves: WorkspaceLeaf[] =
       this.app.workspace.getLeavesOfType(TIMER_VIEW_TYPE);
-    if (leaves.length == 0) return;
+    if (leaves.length === 0) return;
     const view = leaves[0].view as TimerView;
     if (timer) await view.updateTimer(timer);
     else await view.updateSettings(this.settings);

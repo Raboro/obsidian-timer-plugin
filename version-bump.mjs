@@ -1,5 +1,5 @@
-import { execSync } from 'child_process';
-import { readFileSync, writeFileSync } from 'fs';
+import { execSync } from 'node:child_process';
+import { readFileSync, writeFileSync } from 'node:fs';
 
 const highestTag = execSync('git describe --tags --abbrev=0').toString().trim();
 
@@ -7,11 +7,11 @@ const incrementVersion = (version) => {
   const [major, minor, patch] = version.split('.').map(Number);
   if (patch < 9) {
     return `${major}.${minor}.${patch + 1}`;
-  } else if (minor < 9) {
-    return `${major}.${minor + 1}.0`;
-  } else {
-    return `${major + 1}.0.0`;
   }
+  if (minor < 9) {
+    return `${major}.${minor + 1}.0`;
+  }
+  return `${major + 1}.0.0`;
 };
 
 function updateVersion(name) {

@@ -89,7 +89,7 @@ export class TimerSettingsTab extends PluginSettingTab {
   }
 
   private isInvalidValue(value: string): boolean {
-    if (value.length == 0) return true;
+    if (value.length === 0) return true;
     const invalidLastChar = !['s', 'm', 'h'].contains(
       value.charAt(value.length - 1),
     );

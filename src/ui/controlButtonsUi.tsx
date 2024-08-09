@@ -24,7 +24,7 @@ export default function ControlButtonsUi({
     resetDisplay &&
     !cancelDisplay &&
     !pauseDisplay &&
-    pauseName == 'Pause';
+    pauseName === 'Pause';
 
   if (switchControlButtons && !allSwitch()) {
     setStartDisplay(true);
@@ -54,7 +54,7 @@ export default function ControlButtonsUi({
   };
 
   const pause = () => {
-    if (pauseName == 'Pause') stopTimer();
+    if (pauseName === 'Pause') stopTimer();
     else startTimer();
     setPauseName((name) => (name === 'Pause' ? 'Resume' : 'Pause'));
   };
