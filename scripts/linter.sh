@@ -4,7 +4,7 @@ echo -e "\ntry to fix all issues if present"
 
 bun run biome:write
 
-git commit -am "fixed biome issues"
+git commit -am "refactor(GHActionbot): :art: formatted & linting & organized imports with biome"
 
 echo -e "\ncheck all issues fixed"
 

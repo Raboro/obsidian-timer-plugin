@@ -21,7 +21,7 @@ fi
 
 echo "commit and push all changes with version"
 
-git commit -am "to version $current_version"
+git commit -am "chore(Release): :bookmark: to version $current_version"
 
 git tag -a $current_version -m "$current_version"
 
