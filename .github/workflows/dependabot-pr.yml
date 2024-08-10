@@ -5,6 +5,10 @@ on:
     paths:
       - "package.json"
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   update-bun-lockb:
     name: "Update bun.lockb"
