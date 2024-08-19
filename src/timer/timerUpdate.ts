@@ -40,8 +40,8 @@ export default class TimerUpdate {
       ';',
     ];
     const noInvalidChars = !INVALID_CHARACTERS.some((char) => {
-      this.updateValue.contains(char) ||
-        this.updateValue.contains(char.toLowerCase());
+      this.updateValue.includes(char) ||
+        this.updateValue.includes(char.toLowerCase());
     });
     return (
       noInvalidChars && ['h', 'm', 's'].some((unit) => unit === this.timeUnit)
@@ -49,7 +49,7 @@ export default class TimerUpdate {
   }
 
   isReset(): boolean {
-    return this.updateValue.contains('-') && this.updateIsBigger();
+    return this.updateValue.includes('-') && this.updateIsBigger();
   }
 
   private updateIsBigger(): boolean {
@@ -68,16 +68,16 @@ export default class TimerUpdate {
   }
 
   isTooBig(): boolean {
-    const prefix = this.updateValue.contains('-') ? -1 : 1;
+    const prefix = this.updateValue.includes('-') ? -1 : 1;
     return prefix * this.getUpdateAsInt() + this.current - 995959 >= 0;
   }
 
   inSeconds(): boolean {
-    return this.timeUnit.contains('s');
+    return this.timeUnit.includes('s');
   }
 
   inMinutes(): boolean {
-    return this.timeUnit.contains('m');
+    return this.timeUnit.includes('m');
   }
 
   getValue(): string {

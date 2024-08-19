@@ -35,7 +35,7 @@ export default class Timer {
   }
 
   private static containsChar(result: string): boolean {
-    return ['s', 'm', 'h'].some((char) => result.contains(char));
+    return ['s', 'm', 'h'].some((char) => result.includes(char));
   }
 
   private static setContainsChar(result: string): Timer {
@@ -100,7 +100,7 @@ export default class Timer {
       ';',
     ];
     return INVALID_CHARACTERS.some((char) => {
-      return split.contains(char) || split.contains(char.toLowerCase());
+      return split.includes(char) || split.includes(char.toLowerCase());
     });
   }
 
