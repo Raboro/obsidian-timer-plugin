@@ -50,7 +50,7 @@ export default function TimerUi({
         clearInterval(intervalIdRef.current);
         setTimerExpired(true);
       }
-    }, 1000);
+    }, 1000) as NodeJS.Timeout;
     return true;
   };
 

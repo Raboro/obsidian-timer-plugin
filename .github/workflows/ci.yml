@@ -39,5 +39,8 @@ jobs:
             - name: Check if all issues are fixed
               run: bun run biome:ci
 
+            - name: Run Tests
+              run: bun test
+
             - name: Build
               run: bun run build
