@@ -31,6 +31,12 @@ jobs:
           bun install 
           git add bun.lockb
 
+      - name: Run Tests
+        run: bun test
+
+      - name: Build
+        run: bun run build
+
       - name: Commit changes
         run: |
           git config --global user.name 'dependabot[bot]'
