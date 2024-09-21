@@ -135,7 +135,7 @@ export default class TimerPlugin extends Plugin {
   };
 
   async loadSettings(): Promise<void> {
-    this.settings = {...DEFAULT_SETTINGS, ...await this.loadData()};
+    this.settings = { ...DEFAULT_SETTINGS, ...(await this.loadData()) };
   }
 
   async saveSettings(): Promise<void> {
