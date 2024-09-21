@@ -10,11 +10,11 @@ export const TIMER_VIEW_TYPE = 'Timer';
 export const TimerSettingsContext = React.createContext(DEFAULT_SETTINGS);
 
 export default class TimerView extends ItemView {
+  private readonly statusBarItem: HTMLElement;
   private container: HTMLDivElement;
   private root: Root;
   private timerSettings: TimerSettings;
   private timer: Timer;
-  private statusBarItem: HTMLElement;
   icon = 'alarm-clock';
 
   constructor(
