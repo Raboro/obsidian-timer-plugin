@@ -1,7 +1,7 @@
 export default class TimerUpdate {
-  private timeUnit: string;
-  private updateValue: string;
-  private current: number;
+  private readonly timeUnit: string;
+  private readonly updateValue: string;
+  private readonly current: number;
 
   constructor(update: string, current: number) {
     this.timeUnit = update.charAt(update.length - 1);
