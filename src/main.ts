@@ -82,7 +82,7 @@ export default class TimerPlugin extends Plugin {
       'Set timer to',
       'Insert new timer in two ways:',
       async (result: string) => {
-        this.reload(Timer.set(result));
+        await this.reload(Timer.set(result));
       },
     ).open();
   };
@@ -107,7 +107,7 @@ export default class TimerPlugin extends Plugin {
           !this.settings.favoriteTimers.contains(newFavoriteTimer.toString())
         ) {
           this.settings.favoriteTimers.push(newFavoriteTimer.toString());
-          this.saveSettings();
+          await this.saveSettings();
         }
       },
     ).open();
@@ -118,7 +118,7 @@ export default class TimerPlugin extends Plugin {
       this.app,
       this.settings.favoriteTimers,
       async (result: string) => {
-        this.reload(Timer.set(result));
+        await this.reload(Timer.set(result));
       },
     ).open();
   };
@@ -129,7 +129,7 @@ export default class TimerPlugin extends Plugin {
       this.settings.favoriteTimers,
       async (result: string) => {
         this.settings.favoriteTimers.remove(result);
-        this.saveSettings();
+        await this.saveSettings();
       },
     ).open();
   };
@@ -140,6 +140,6 @@ export default class TimerPlugin extends Plugin {
 
   async saveSettings(): Promise<void> {
     await this.saveData(this.settings);
-    this.reload();
+    await this.reload();
   }
 }
