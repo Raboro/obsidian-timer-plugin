@@ -22,17 +22,23 @@ export default function ClockUi({ timer }: Readonly<IClockUi>) {
 // Standard Time Format (HH:MM:SS)
 function StandardTimeFormatUi({ timer }: Readonly<IClockUi>) {
   return (
-    <div className="clockContainer">
+    <div className="clockContainerCon">
       <ClockHeaderTextUi />
-      <div className="clockElementContainer">
-        <ClockElementUi char={timer.hours.charAt(0)} />
-        <ClockElementUi char={timer.hours.charAt(1)} />
+      <div className="clockContainer clockElementContainer">
+        <div className="clockUnit">
+          <ClockElementUi char={timer.hours.charAt(0)} />
+          <ClockElementUi char={timer.hours.charAt(1)} />
+        </div>
         <ClockElementSeparatorUi />
-        <ClockElementUi char={timer.minutes.charAt(0)} />
-        <ClockElementUi char={timer.minutes.charAt(1)} />
+        <div className="clockUnit">
+          <ClockElementUi char={timer.minutes.charAt(0)} />
+          <ClockElementUi char={timer.minutes.charAt(1)} />
+        </div>
         <ClockElementSeparatorUi />
-        <ClockElementUi char={timer.seconds.charAt(0)} />
-        <ClockElementUi char={timer.seconds.charAt(1)} />
+        <div className="clockUnit">
+          <ClockElementUi char={timer.seconds.charAt(0)} />
+          <ClockElementUi char={timer.seconds.charAt(1)} />
+        </div>
       </div>
     </div>
   );
