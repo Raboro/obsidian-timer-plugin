@@ -24,10 +24,13 @@ function StandardTimeFormatUi(
   { timer }: Readonly<IClockUi>,
   timerSettings: TimerSettings,
 ) {
+  const commaGapBuffer = !timerSettings.useCommaSeparationInDefaultTimeFormat
+    ? 'clockContainerGap'
+    : '';
   return (
     <div className="clockContainerCon">
       <ClockHeaderTextUi />
-      <div className="clockContainer clockElementContainer">
+      <div className={`clockContainer clockElementContainer ${commaGapBuffer}`}>
         <div className="clockUnit">
           <ClockElementUi char={timer.hours.charAt(0)} />
           <ClockElementUi char={timer.hours.charAt(1)} />
