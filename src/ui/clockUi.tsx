@@ -16,11 +16,14 @@ export default function ClockUi({ timer }: Readonly<IClockUi>) {
   if (timerSettings.useVerboseTimeFormat) {
     return VerboseTimeFormatUi({ timer }, timerSettings);
   }
-  return StandardTimeFormatUi({ timer });
+  return StandardTimeFormatUi({ timer }, timerSettings);
 }
 
 // Standard Time Format (HH:MM:SS)
-function StandardTimeFormatUi({ timer }: Readonly<IClockUi>) {
+function StandardTimeFormatUi(
+  { timer }: Readonly<IClockUi>,
+  timerSettings: TimerSettings,
+) {
   return (
     <div className="clockContainerCon">
       <ClockHeaderTextUi />
@@ -29,12 +32,16 @@ function StandardTimeFormatUi({ timer }: Readonly<IClockUi>) {
           <ClockElementUi char={timer.hours.charAt(0)} />
           <ClockElementUi char={timer.hours.charAt(1)} />
         </div>
-        <ClockElementSeparatorUi />
+        {timerSettings.useCommaSeparationInDefaultTimeFormat && (
+          <ClockElementSeparatorUi />
+        )}
         <div className="clockUnit">
           <ClockElementUi char={timer.minutes.charAt(0)} />
           <ClockElementUi char={timer.minutes.charAt(1)} />
         </div>
-        <ClockElementSeparatorUi />
+        {timerSettings.useCommaSeparationInDefaultTimeFormat && (
+          <ClockElementSeparatorUi />
+        )}
         <div className="clockUnit">
           <ClockElementUi char={timer.seconds.charAt(0)} />
           <ClockElementUi char={timer.seconds.charAt(1)} />
