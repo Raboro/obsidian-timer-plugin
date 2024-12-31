@@ -29,7 +29,7 @@ function StandardTimeFormatUi(
     : '';
   return (
     <div className="clockContainerCon">
-      <ClockHeaderTextUi />
+      {!timerSettings.disableTimerHeader && <ClockHeaderTextUi />}
       <div className={`clockContainer clockElementContainer ${commaGapBuffer}`}>
         <div className="clockUnit">
           <ClockElementUi char={timer.hours.charAt(0)} />
