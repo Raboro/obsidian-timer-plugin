@@ -36,6 +36,8 @@ You can set the numbers of the timer buttons in the settings. Also you can inser
 
 You can also stack the timer buttons over each other.
 
-Also it's possible to use another time format displayed in the ui. Default is shown in the screenshot on the top. But you can also enable verbose format and directly see the numbers: ``12m 00s``. If you wanna get rid of the ``00s`` you can enable the last setting 'Remove not set values in verbose time format' to get ``12m``
+Also it's possible to use another time format displayed in the ui. Default is shown in the screenshot on the top. But you can also enable verbose format and directly see the numbers: ``12m 00s``. If you wanna get rid of the ``00s`` you can enable the last setting 'Remove not set values in verbose time format' to get ``12m``.
+
+It's also possible to switch between different notifications (Obsidian/OS Notification). Deactivate commas & disable header of default timer format.
 
 ![Settings Demo image](assets/SettingsDemo.png)
