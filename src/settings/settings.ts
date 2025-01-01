@@ -43,7 +43,7 @@ export class TimerSettingsTab extends PluginSettingTab {
     this.changeTimerButtonSetting = this.changeTimerButtonSetting.bind(this);
   }
 
-  display(): void {
+  override display(): void {
     this.containerEl.empty();
     this.timerButtonsSettings();
     this.stackButtonSettings();
