@@ -35,7 +35,7 @@ export const DEFAULT_SETTINGS: TimerSettings = {
 };
 
 export class TimerSettingsTab extends PluginSettingTab {
-  private plugin: TimerPlugin;
+  private readonly plugin: TimerPlugin;
 
   constructor(app: App, plugin: TimerPlugin) {
     super(app, plugin);
@@ -43,7 +43,7 @@ export class TimerSettingsTab extends PluginSettingTab {
     this.changeTimerButtonSetting = this.changeTimerButtonSetting.bind(this);
   }
 
-  display(): void {
+  override display(): void {
     this.containerEl.empty();
     this.timerButtonsSettings();
     this.stackButtonSettings();
@@ -149,7 +149,7 @@ export class TimerSettingsTab extends PluginSettingTab {
     new Setting(this.containerEl)
       .setName('Remove not set values in verbose time format')
       .setDesc(
-        "If enabled and verbose enabled, 00 values are not shown. If disabled and for example +1m is clicked, also '00s' is shown",
+        "If enabled and verbose enabled, 00 values are not shown. If disabled and for example +1m is clicked, also '00s' is shown.",
       )
       .addToggle((toggle) =>
         toggle
@@ -165,7 +165,7 @@ export class TimerSettingsTab extends PluginSettingTab {
     new Setting(this.containerEl)
       .setName('Use OS notification')
       .setDesc(
-        'If enabled, the timer notification will be an OS-level notification rather than an Obisidian notice, and will remain active until dismissed.',
+        'If enabled, the timer notification will be an OS-level notification rather than an Obsidian notice, and will remain active until dismissed.',
       )
       .addToggle((toggle) =>
         toggle
@@ -190,7 +190,6 @@ export class TimerSettingsTab extends PluginSettingTab {
                     );
                     this.plugin.settings.useOSNotification = false;
                     this.plugin.saveSettings();
-                    return;
                   }
                 });
               }
