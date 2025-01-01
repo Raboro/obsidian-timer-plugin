@@ -16,23 +16,39 @@ export default function ClockUi({ timer }: Readonly<IClockUi>) {
   if (timerSettings.useVerboseTimeFormat) {
     return VerboseTimeFormatUi({ timer }, timerSettings);
   }
-  return StandardTimeFormatUi({ timer });
+  return StandardTimeFormatUi({ timer }, timerSettings);
 }
 
 // Standard Time Format (HH:MM:SS)
-function StandardTimeFormatUi({ timer }: Readonly<IClockUi>) {
+function StandardTimeFormatUi(
+  { timer }: Readonly<IClockUi>,
+  timerSettings: TimerSettings,
+) {
+  const commaGapBuffer = !timerSettings.useCommaSeparationInDefaultTimeFormat
+    ? 'clockContainerGap'
+    : '';
   return (
-    <div className="clockContainer">
-      <ClockHeaderTextUi />
-      <div className="clockElementContainer">
-        <ClockElementUi char={timer.hours.charAt(0)} />
-        <ClockElementUi char={timer.hours.charAt(1)} />
-        <ClockElementSeparatorUi />
-        <ClockElementUi char={timer.minutes.charAt(0)} />
-        <ClockElementUi char={timer.minutes.charAt(1)} />
-        <ClockElementSeparatorUi />
-        <ClockElementUi char={timer.seconds.charAt(0)} />
-        <ClockElementUi char={timer.seconds.charAt(1)} />
+    <div className="clockContainerCon">
+      {!timerSettings.disableTimerHeader && <ClockHeaderTextUi />}
+      <div className={`clockContainer clockElementContainer ${commaGapBuffer}`}>
+        <div className="clockUnit">
+          <ClockElementUi char={timer.hours.charAt(0)} />
+          <ClockElementUi char={timer.hours.charAt(1)} />
+        </div>
+        {timerSettings.useCommaSeparationInDefaultTimeFormat && (
+          <ClockElementSeparatorUi />
+        )}
+        <div className="clockUnit">
+          <ClockElementUi char={timer.minutes.charAt(0)} />
+          <ClockElementUi char={timer.minutes.charAt(1)} />
+        </div>
+        {timerSettings.useCommaSeparationInDefaultTimeFormat && (
+          <ClockElementSeparatorUi />
+        )}
+        <div className="clockUnit">
+          <ClockElementUi char={timer.seconds.charAt(0)} />
+          <ClockElementUi char={timer.seconds.charAt(1)} />
+        </div>
       </div>
     </div>
   );

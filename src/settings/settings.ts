@@ -19,6 +19,8 @@ export interface TimerSettings {
   useVerboseTimeFormat: boolean;
   verboseTimeFormatRemoveNotSetValues: boolean;
   useOSNotification: boolean;
+  useCommaSeparationInDefaultTimeFormat: boolean;
+  disableTimerHeader: boolean;
 }
 
 export const DEFAULT_SETTINGS: TimerSettings = {
@@ -28,6 +30,8 @@ export const DEFAULT_SETTINGS: TimerSettings = {
   useVerboseTimeFormat: false,
   verboseTimeFormatRemoveNotSetValues: false,
   useOSNotification: false,
+  useCommaSeparationInDefaultTimeFormat: true,
+  disableTimerHeader: false,
 };
 
 export class TimerSettingsTab extends PluginSettingTab {
@@ -46,6 +50,8 @@ export class TimerSettingsTab extends PluginSettingTab {
     this.useVerboseTimeFormatSettings();
     this.verboseTimeFormatRemoveNotSetValues();
     this.useOSNotificationSettings();
+    this.useCommaSeparationInDefaultTimeFormat();
+    this.disableTimerHeader();
   }
 
   private timerButtonsSettings(): void {
@@ -191,5 +197,33 @@ export class TimerSettingsTab extends PluginSettingTab {
             }
           }),
       );
+  }
+
+  private useCommaSeparationInDefaultTimeFormat(): void {
+    new Setting(this.containerEl)
+      .setName('Use comma separation in default time format')
+      .setDesc('If enabled, the default time format displayed in Timer View contains commas to separate hours, minutes and seconds.')
+      .addToggle((toggle) => 
+        toggle
+          .setValue(this.plugin.settings.useCommaSeparationInDefaultTimeFormat)
+          .onChange(async (value) => {
+            this.plugin.settings.useCommaSeparationInDefaultTimeFormat = value;
+            await this.plugin.saveSettings();
+          })
+    );
+  }
+
+  private disableTimerHeader(): void {
+    new Setting(this.containerEl)
+      .setName('Disable header of Timer')
+      .setDesc('If enabled, the header of the default time format is disabled.')
+      .addToggle((toggle) => 
+        toggle
+          .setValue(this.plugin.settings.disableTimerHeader)
+          .onChange(async (value) => {
+            this.plugin.settings.disableTimerHeader = value;
+            await this.plugin.saveSettings();      
+          })
+    );
   }
 }
