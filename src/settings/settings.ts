@@ -35,7 +35,7 @@ export const DEFAULT_SETTINGS: TimerSettings = {
 };
 
 export class TimerSettingsTab extends PluginSettingTab {
-  private plugin: TimerPlugin;
+  private readonly plugin: TimerPlugin;
 
   constructor(app: App, plugin: TimerPlugin) {
     super(app, plugin);
