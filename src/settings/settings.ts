@@ -190,7 +190,6 @@ export class TimerSettingsTab extends PluginSettingTab {
                     );
                     this.plugin.settings.useOSNotification = false;
                     this.plugin.saveSettings();
-                    return;
                   }
                 });
               }
