@@ -202,28 +202,30 @@ export class TimerSettingsTab extends PluginSettingTab {
   private useCommaSeparationInDefaultTimeFormat(): void {
     new Setting(this.containerEl)
       .setName('Use comma separation in default time format')
-      .setDesc('If enabled, the default time format displayed in Timer View contains commas to separate hours, minutes and seconds.')
-      .addToggle((toggle) => 
+      .setDesc(
+        'If enabled, the default time format displayed in Timer View contains commas to separate hours, minutes and seconds.',
+      )
+      .addToggle((toggle) =>
         toggle
           .setValue(this.plugin.settings.useCommaSeparationInDefaultTimeFormat)
           .onChange(async (value) => {
             this.plugin.settings.useCommaSeparationInDefaultTimeFormat = value;
             await this.plugin.saveSettings();
-          })
-    );
+          }),
+      );
   }
 
   private disableTimerHeader(): void {
     new Setting(this.containerEl)
       .setName('Disable header of Timer')
       .setDesc('If enabled, the header of the default time format is disabled.')
-      .addToggle((toggle) => 
+      .addToggle((toggle) =>
         toggle
           .setValue(this.plugin.settings.disableTimerHeader)
           .onChange(async (value) => {
             this.plugin.settings.disableTimerHeader = value;
-            await this.plugin.saveSettings();      
-          })
-    );
+            await this.plugin.saveSettings();
+          }),
+      );
   }
 }
