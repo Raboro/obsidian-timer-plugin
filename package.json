@@ -20,7 +20,7 @@
     "@types/react": "^19.0.2",
     "@types/react-dom": "^19.0.2",
     "builtin-modules": "4.0.0",
-    "esbuild": "0.25.4",
+    "esbuild": "0.25.10",
     "obsidian": "1.7.2",
     "tslib": "2.8.1",
     "typescript": "5.9.2"
