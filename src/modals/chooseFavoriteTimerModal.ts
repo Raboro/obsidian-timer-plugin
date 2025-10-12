@@ -22,7 +22,7 @@ export default class ChooseFavoriteTimerModal extends FuzzySuggestModal<string> 
     return item;
   }
 
-  onChooseItem(item: string, evt: MouseEvent | KeyboardEvent): void {
+  onChooseItem(item: string, _evt: MouseEvent | KeyboardEvent): void {
     this.onSubmit(item);
   }
 }

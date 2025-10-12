@@ -40,8 +40,10 @@ export default class TimerUpdate {
       ';',
     ];
     const noInvalidChars = !INVALID_CHARACTERS.some((char) => {
-      this.updateValue.includes(char) ||
-        this.updateValue.includes(char.toLowerCase());
+      return (
+        this.updateValue.includes(char) ||
+        this.updateValue.includes(char.toLowerCase())
+      );
     });
     return (
       noInvalidChars && ['h', 'm', 's'].some((unit) => unit === this.timeUnit)
@@ -60,6 +62,7 @@ export default class TimerUpdate {
     return Number.parseInt(
       this.updateValue.replace('-', '') +
         '0'.repeat(this.determineShift() ?? 0),
+      10,
     );
   }
 

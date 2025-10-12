@@ -41,10 +41,11 @@ export default class Timer {
   private static setContainsChar(result: string): Timer {
     const matches = result.match(/(\d+[smh]?)/g);
     const timer = new Timer();
-    // biome-ignore lint: performance issue to use for..of not relevant
     matches
       ?.filter((match) => Timer.validUpdate(match))
-      .forEach((match) => timer.updateTimer(match));
+      .forEach((match) => {
+        timer.updateTimer(match);
+      });
     return timer;
   }
 
@@ -106,9 +107,9 @@ export default class Timer {
 
   private static allNotTooBig(splitted: string[]): boolean {
     return (
-      Number.parseInt(splitted[0]) <= Timer.HOUR_MAX &&
-      Number.parseInt(splitted[1]) <= Timer.MINUTES_MAX &&
-      Number.parseInt(splitted[2]) <= Timer.SECONDS_MAX
+      Number.parseInt(splitted[0], 10) <= Timer.HOUR_MAX &&
+      Number.parseInt(splitted[1], 10) <= Timer.MINUTES_MAX &&
+      Number.parseInt(splitted[2], 10) <= Timer.SECONDS_MAX
     );
   }
 
@@ -123,7 +124,10 @@ export default class Timer {
   }
 
   private getCurrentAsInt(): number {
-    return Number.parseInt(this.toString().replace(':', '').replace(':', ''));
+    return Number.parseInt(
+      this.toString().replace(':', '').replace(':', ''),
+      10,
+    );
   }
 
   private setMaxValue(): void {
@@ -144,7 +148,7 @@ export default class Timer {
     if (this.validNewValue(mergedValue, Timer.SECONDS_MAX)) {
       this.seconds = mergedValue;
     } else {
-      const negative = Number.parseInt(mergedValue) <= 0;
+      const negative = Number.parseInt(mergedValue, 10) <= 0;
       if (
         this.updateMinutes(
           this.getUpdateForNext(negative, mergedValue, Timer.SECONDS_MAX),
@@ -160,18 +164,21 @@ export default class Timer {
   }
 
   private merge(first: string, second: string): string {
-    const value = (Number.parseInt(first) + Number.parseInt(second)).toString();
+    const value = (
+      Number.parseInt(first, 10) + Number.parseInt(second, 10)
+    ).toString();
     return this.betweenZeroAndTen(value) ? '0'.concat(value) : value;
   }
 
   private validNewValue(mergedValue: string, max: number): boolean {
     return (
-      Number.parseInt(mergedValue) <= max && Number.parseInt(mergedValue) >= 0
+      Number.parseInt(mergedValue, 10) <= max &&
+      Number.parseInt(mergedValue, 10) >= 0
     );
   }
 
   private betweenZeroAndTen(value: string): boolean {
-    return Number.parseInt(value) < 10 && Number.parseInt(value) >= 0;
+    return Number.parseInt(value, 10) < 10 && Number.parseInt(value, 10) >= 0;
   }
 
   private getUpdateForNext(
@@ -182,7 +189,8 @@ export default class Timer {
     return negative
       ? '-1'
       : Number.parseInt(
-          (Number.parseInt(mergedValue) / max).toString(),
+          (Number.parseInt(mergedValue, 10) / max).toString(),
+          10,
         ).toString();
   }
 
@@ -191,9 +199,11 @@ export default class Timer {
     mergedValue: string,
     max: number,
   ): string {
-    const mod = Number.parseInt(mergedValue) % max;
+    const mod = Number.parseInt(mergedValue, 10) % max;
     const merged = this.merge('00', (mod - (negative ? 0 : 1)).toString());
-    return negative ? (max + 1 + Number.parseInt(merged)).toString() : merged;
+    return negative
+      ? (max + 1 + Number.parseInt(merged, 10)).toString()
+      : merged;
   }
 
   private updateMinutes(updatedValue: string): boolean {
@@ -202,7 +212,7 @@ export default class Timer {
       this.minutes = mergedValue;
       return true;
     }
-    const negative = Number.parseInt(mergedValue) <= 0;
+    const negative = Number.parseInt(mergedValue, 10) <= 0;
     if (
       this.updateHour(
         this.getUpdateForNext(negative, mergedValue, Timer.MINUTES_MAX),

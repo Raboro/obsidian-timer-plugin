@@ -59,9 +59,9 @@ function VerboseTimeFormatUi(
   { timer }: Readonly<IClockUi>,
   timerSettings: TimerSettings,
 ) {
-  const hours = Number.parseInt(timer.hours);
-  const minutes = Number.parseInt(timer.minutes);
-  const seconds = Number.parseInt(timer.seconds);
+  const hours = Number.parseInt(timer.hours, 10);
+  const minutes = Number.parseInt(timer.minutes, 10);
+  const seconds = Number.parseInt(timer.seconds, 10);
 
   const hoursString = hours > 0 ? `${hours.toString()}h ` : '';
 
