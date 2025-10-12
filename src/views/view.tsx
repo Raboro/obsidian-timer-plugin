@@ -1,6 +1,6 @@
 import { ItemView, type WorkspaceLeaf } from 'obsidian';
 import * as React from 'react';
-import { type Root, createRoot } from 'react-dom/client';
+import { createRoot, type Root } from 'react-dom/client';
 import { DEFAULT_SETTINGS, type TimerSettings } from 'src/settings/settings';
 import type Timer from 'src/timer/timer';
 import TimerUi from 'src/ui/timerUi';

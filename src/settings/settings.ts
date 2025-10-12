@@ -100,7 +100,8 @@ export class TimerSettingsTab extends PluginSettingTab {
       value.charAt(value.length - 1),
     );
     const invalidPrefix = !/^\d+$/.test(value.slice(0, value.length - 1));
-    const valueTooLow = Number.parseInt(value.slice(0, value.length - 1)) <= 0;
+    const valueTooLow =
+      Number.parseInt(value.slice(0, value.length - 1), 10) <= 0;
     return invalidLastChar || invalidPrefix || valueTooLow;
   }
 
